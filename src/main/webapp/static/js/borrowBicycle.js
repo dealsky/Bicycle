@@ -1,5 +1,10 @@
 $(document).ready(function () {
 
+    $("#borrowModal").modal({
+        backdrop: false,
+        show: false
+    });
+
     $(document).keydown(function(event){
         if(event.keyCode === 13) {
             $("#searchSite").trigger("click");
@@ -43,6 +48,9 @@ $(document).ready(function () {
 
     $("#searchSite").click(function () {
         var siteNumber =  $("[name='siteNumber']").val();
+        if(siteNumber === "") {
+            return;
+        }
         $("#searchedSiteError").html("");
         $(".searched-site tbody").html("");
         $("#displayBicycleError").html("");
@@ -50,9 +58,6 @@ $(document).ready(function () {
         $(".page-bicycle").html("");
         $(".table-length").html("");
         $(".bicycle-search-input").val("");
-        if(siteNumber === "") {
-            return;
-        }
         if(isNaN(siteNumber)) {
             $("#searchedSiteError").html("没有该站点!");
             return;
@@ -84,6 +89,9 @@ $(document).ready(function () {
 
     $("#bicycleSearch").click(function () {
         var bicycleNumber = $(".bicycle-search-input").val();
+        if(bicycleNumber === "") {
+            return;
+        }
         $("#displayBicycleError").html("");
         $(".bicycle-table tbody").html("");
         $(".page-bicycle").html("");
@@ -91,9 +99,6 @@ $(document).ready(function () {
         $("#searchedSiteError").html("");
         $(".searched-site tbody").html("");
         $(".bicycle-search-input").val("");
-        if(bicycleNumber === "") {
-            return;
-        }
         if(isNaN(bicycleNumber)) {
             $("#displayBicycleError").html("没有该车！");
             return;
@@ -111,7 +116,7 @@ $(document).ready(function () {
                         "                        <td>" + bicycle.bictype + "</td>\n" +
                         "                        <td>" + bicycle.bicrentprice + "</td>\n" +
                         "                        <td>\n" +
-                        "                            <button type=\"button\" class=\"button button-rounded button-royal button-small borrow-button\">借车</button>\n" +
+                        "                            <button type=\"button\" class=\"button button-rounded button-royal button-small borrow-button\" onclick='opBorrowModal(" + bicycle.bicnumber + ")'>借车</button>\n" +
                         "                        </td>\n" +
                         "                    </tr>");
                 } else {
@@ -203,7 +208,7 @@ function showBicycle(siteId, pageNum, pageSize) {
                         "                        <td>" + bicycle.bictype + "</td>\n" +
                         "                        <td>" + bicycle.bicrentprice + "</td>\n" +
                         "                        <td>\n" +
-                        "                            <button type=\"button\" class=\"button button-rounded button-royal button-small borrow-button\">借车</button>\n" +
+                        "                            <button type=\"button\" class=\"button button-rounded button-royal button-small borrow-button\" onclick='opBorrowModal(" + bicycle.bicnumber+ ")'>借车</button>\n" +
                         "                        </td>\n" +
                         "                    </tr>");
                 }
@@ -250,4 +255,10 @@ function changeClickBic(siteId, pageNow, pageNum) {
 function changePageSize(siteId) {
     var pageSize = $(".table-length select").find(":checked").text();
     showBicycle(siteId, 1, pageSize);
+}
+
+function opBorrowModal(bicycleNumber) {
+    console.log(bicycleNumber);
+    $("#borrowModal").modal("show");
+    $("#borrowModal .modal-body").html(bicycleNumber);
 }
