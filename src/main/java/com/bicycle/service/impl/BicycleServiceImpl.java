@@ -39,4 +39,12 @@ public class BicycleServiceImpl implements BicycleService {
         ModuleBicycle moduleBicycle = moduleBicycleMapper.selectByPrimaryKey(bicycleId);
         return moduleBicycle;
     }
+
+    public List<ModuleBicycle> getBicycleByNumber(long bicycleNumber) {
+        ModuleBicycleExample moduleBicycleExample = new ModuleBicycleExample();
+        ModuleBicycleExample.Criteria criteria = moduleBicycleExample.createCriteria();
+        criteria.andBicnumberEqualTo(bicycleNumber);
+        List<ModuleBicycle> list = moduleBicycleMapper.selectByExample(moduleBicycleExample);
+        return list;
+    }
 }

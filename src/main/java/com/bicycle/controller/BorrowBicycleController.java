@@ -141,4 +141,17 @@ public class BorrowBicycleController {
         }
         return map;
     }
+
+    @RequestMapping("/SearchBicycle.do")
+    public @ResponseBody Map<String, Object> searchBicycle(@RequestParam long bicycleNumber) {
+        Map<String, Object> map = new HashMap<>();
+        List<ModuleBicycle> list = bicycleService.getBicycleByNumber(bicycleNumber);
+        if(list.size() == 0) {
+            map.put("message", "error");
+        } else {
+            map.put("message", "right");
+            map.put("bicycle", list.get(0));
+        }
+        return map;
+    }
 }

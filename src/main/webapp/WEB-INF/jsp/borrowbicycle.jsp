@@ -23,6 +23,16 @@
             <div class="block">
 
             </div>
+
+            <div style="margin-bottom: 65px;">
+                <div>
+                    <button type="button" class="btn btn-primary" style="float: right" id="bicycleSearch">查询</button>
+                </div>
+                <div class="col-md-3" style="float: right;">
+                    <input type="text" class="form-control bicycle-search-input" placeholder="自行车编号"/>
+                </div>
+            </div>
+
             <div class="bicycle-table">
                 <table class="table table-hover table-striped table-bordered">
                     <thead>
@@ -39,6 +49,9 @@
                 </table>
             </div>
             <div class="pagination page-bicycle">
+
+            </div>
+            <div class="form-group table-length">
 
             </div>
             <div id="displayBicycleError">

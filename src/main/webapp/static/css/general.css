@@ -178,3 +178,15 @@
 .borrow-button {
     float: right;
 }
+
+.pagination a {
+    cursor: pointer;
+}
+
+.table-length {
+    text-align: center;
+    width: 70px;
+    float: right;
+    margin-top: 20px;
+    margin-right: 60px;
+}

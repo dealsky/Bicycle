@@ -46,6 +46,10 @@ $(document).ready(function () {
         $("#searchedSiteError").html("");
         $(".searched-site tbody").html("");
         $("#displayBicycleError").html("");
+        $(".bicycle-table tbody").html("");
+        $(".page-bicycle").html("");
+        $(".table-length").html("");
+        $(".bicycle-search-input").val("");
         if(siteNumber === "") {
             return;
         }
@@ -76,6 +80,49 @@ $(document).ready(function () {
             }
         });
         $("[name='siteNumber']").val("");
+    });
+
+    $("#bicycleSearch").click(function () {
+        var bicycleNumber = $(".bicycle-search-input").val();
+        $("#displayBicycleError").html("");
+        $(".bicycle-table tbody").html("");
+        $(".page-bicycle").html("");
+        $(".table-length").html("");
+        $("#searchedSiteError").html("");
+        $(".searched-site tbody").html("");
+        $(".bicycle-search-input").val("");
+        if(bicycleNumber === "") {
+            return;
+        }
+        if(isNaN(bicycleNumber)) {
+            $("#displayBicycleError").html("没有该车！");
+            return;
+        }
+        $.ajax({
+            url: "/Bicycle/SearchBicycle.do",
+            type: "POST",
+            dataType: "json",
+            data: {bicycleNumber: bicycleNumber},
+            success: function (data) {
+                if(data.message == "right") {
+                    var bicycle = data.bicycle;
+                    $(".bicycle-table tbody").append("<tr>\n" +
+                        "                        <td>" + bicycle.bicnumber +"</td>\n" +
+                        "                        <td>" + bicycle.bictype + "</td>\n" +
+                        "                        <td>" + bicycle.bicrentprice + "</td>\n" +
+                        "                        <td>\n" +
+                        "                            <button type=\"button\" class=\"button button-rounded button-royal button-small borrow-button\">借车</button>\n" +
+                        "                        </td>\n" +
+                        "                    </tr>");
+                } else {
+                    $("#displayBicycleError").html("没有该车！");
+                }
+            },
+            error: function (xhr) {
+                console.log(xhr.responseText);
+            }
+        });
+
     });
 
 });
@@ -137,6 +184,7 @@ function showBicycle(siteId, pageNum, pageSize) {
     $(".bicycle-table tbody").html("");
     $("#displayBicycleError").html("");
     $(".page-bicycle").html("");
+    $(".table-length").html("");
     $.ajax({
         url: "/Bicycle/DisplayBicycle.do",
         type: "POST",
@@ -169,6 +217,18 @@ function showBicycle(siteId, pageNum, pageSize) {
                     }
                 }
                 $(".page-bicycle").append("<li><a onclick='changeClickBic(" + siteId + "," + pageNum + "," + data.pageLen + ")'>&raquo;</a></li>");
+                $(".table-length").append("<select class=\"form-control\" onchange='changePageSize(" + siteId + ")'>\n" +
+                    "                    <option>3</option>\n" +
+                    "                    <option>5</option>\n" +
+                    "                    <option>10</option>\n" +
+                    "                    <option>25</option>\n" +
+                    "                </select>");
+                $(".table-length select option").each(function () {
+                    if($(this).text() == pageSize) {
+                        $(this).attr("selected", "selected");
+                        return;
+                    }
+                });
             } else {
                 $("#displayBicycleError").html("该站点没有车！");
             }
@@ -183,7 +243,11 @@ function changeClickBic(siteId, pageNow, pageNum) {
     if(pageNow === pageNum) {
         return;
     } else {
-        showBicycle(siteId, pageNum, 5);
+        showBicycle(siteId, pageNum, $(".table-length select").find(":checked").text());
     }
+}
 
+function changePageSize(siteId) {
+    var pageSize = $(".table-length select").find(":checked").text();
+    showBicycle(siteId, 1, pageSize);
 }
