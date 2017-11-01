@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bicycle.dao.ModuleRentedMapper" >
+  <resultMap id="BaseResultMap" type="com.bicycle.dao.entity.ModuleRented" >
+    <id column="RentId" property="rentid" jdbcType="BIGINT" />
+    <result column="UserId" property="userid" jdbcType="BIGINT" />
+    <result column="BicId" property="bicid" jdbcType="BIGINT" />
+    <result column="RentTime" property="renttime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    RentId, UserId, BicId, RentTime
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.bicycle.dao.entity.ModuleRentedExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from module_rented
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from module_rented
+    where RentId = #{rentid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from module_rented
+    where RentId = #{rentid,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.bicycle.dao.entity.ModuleRentedExample" >
+    delete from module_rented
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.bicycle.dao.entity.ModuleRented" >
+    insert into module_rented (RentId, UserId, BicId, 
+      RentTime)
+    values (#{rentid,jdbcType=BIGINT}, #{userid,jdbcType=BIGINT}, #{bicid,jdbcType=BIGINT}, 
+      #{renttime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.bicycle.dao.entity.ModuleRented" >
+    insert into module_rented
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="rentid != null" >
+        RentId,
+      </if>
+      <if test="userid != null" >
+        UserId,
+      </if>
+      <if test="bicid != null" >
+        BicId,
+      </if>
+      <if test="renttime != null" >
+        RentTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="rentid != null" >
+        #{rentid,jdbcType=BIGINT},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=BIGINT},
+      </if>
+      <if test="bicid != null" >
+        #{bicid,jdbcType=BIGINT},
+      </if>
+      <if test="renttime != null" >
+        #{renttime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.bicycle.dao.entity.ModuleRentedExample" resultType="java.lang.Integer" >
+    select count(*) from module_rented
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update module_rented
+    <set >
+      <if test="record.rentid != null" >
+        RentId = #{record.rentid,jdbcType=BIGINT},
+      </if>
+      <if test="record.userid != null" >
+        UserId = #{record.userid,jdbcType=BIGINT},
+      </if>
+      <if test="record.bicid != null" >
+        BicId = #{record.bicid,jdbcType=BIGINT},
+      </if>
+      <if test="record.renttime != null" >
+        RentTime = #{record.renttime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update module_rented
+    set RentId = #{record.rentid,jdbcType=BIGINT},
+      UserId = #{record.userid,jdbcType=BIGINT},
+      BicId = #{record.bicid,jdbcType=BIGINT},
+      RentTime = #{record.renttime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bicycle.dao.entity.ModuleRented" >
+    update module_rented
+    <set >
+      <if test="userid != null" >
+        UserId = #{userid,jdbcType=BIGINT},
+      </if>
+      <if test="bicid != null" >
+        BicId = #{bicid,jdbcType=BIGINT},
+      </if>
+      <if test="renttime != null" >
+        RentTime = #{renttime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where RentId = #{rentid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bicycle.dao.entity.ModuleRented" >
+    update module_rented
+    set UserId = #{userid,jdbcType=BIGINT},
+      BicId = #{bicid,jdbcType=BIGINT},
+      RentTime = #{renttime,jdbcType=TIMESTAMP}
+    where RentId = #{rentid,jdbcType=BIGINT}
+  </update>
+</mapper>

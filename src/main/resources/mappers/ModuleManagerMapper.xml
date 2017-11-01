@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bicycle.dao.ModuleManagerMapper" >
+  <resultMap id="BaseResultMap" type="com.bicycle.dao.entity.ModuleManager" >
+    <id column="MagId" property="magid" jdbcType="BIGINT" />
+    <result column="MagName" property="magname" jdbcType="VARCHAR" />
+    <result column="MagSex" property="magsex" jdbcType="INTEGER" />
+    <result column="MagAccount" property="magaccount" jdbcType="VARCHAR" />
+    <result column="MagPass" property="magpass" jdbcType="VARCHAR" />
+    <result column="MagTel" property="magtel" jdbcType="VARCHAR" />
+    <result column="MagRegTime" property="magregtime" jdbcType="TIMESTAMP" />
+    <result column="MagLastLoginTime" property="maglastlogintime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    MagId, MagName, MagSex, MagAccount, MagPass, MagTel, MagRegTime, MagLastLoginTime
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.bicycle.dao.entity.ModuleManagerExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from module_manager
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from module_manager
+    where MagId = #{magid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from module_manager
+    where MagId = #{magid,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.bicycle.dao.entity.ModuleManagerExample" >
+    delete from module_manager
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.bicycle.dao.entity.ModuleManager" >
+    insert into module_manager (MagId, MagName, MagSex, 
+      MagAccount, MagPass, MagTel, 
+      MagRegTime, MagLastLoginTime)
+    values (#{magid,jdbcType=BIGINT}, #{magname,jdbcType=VARCHAR}, #{magsex,jdbcType=INTEGER}, 
+      #{magaccount,jdbcType=VARCHAR}, #{magpass,jdbcType=VARCHAR}, #{magtel,jdbcType=VARCHAR}, 
+      #{magregtime,jdbcType=TIMESTAMP}, #{maglastlogintime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.bicycle.dao.entity.ModuleManager" >
+    insert into module_manager
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="magid != null" >
+        MagId,
+      </if>
+      <if test="magname != null" >
+        MagName,
+      </if>
+      <if test="magsex != null" >
+        MagSex,
+      </if>
+      <if test="magaccount != null" >
+        MagAccount,
+      </if>
+      <if test="magpass != null" >
+        MagPass,
+      </if>
+      <if test="magtel != null" >
+        MagTel,
+      </if>
+      <if test="magregtime != null" >
+        MagRegTime,
+      </if>
+      <if test="maglastlogintime != null" >
+        MagLastLoginTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="magid != null" >
+        #{magid,jdbcType=BIGINT},
+      </if>
+      <if test="magname != null" >
+        #{magname,jdbcType=VARCHAR},
+      </if>
+      <if test="magsex != null" >
+        #{magsex,jdbcType=INTEGER},
+      </if>
+      <if test="magaccount != null" >
+        #{magaccount,jdbcType=VARCHAR},
+      </if>
+      <if test="magpass != null" >
+        #{magpass,jdbcType=VARCHAR},
+      </if>
+      <if test="magtel != null" >
+        #{magtel,jdbcType=VARCHAR},
+      </if>
+      <if test="magregtime != null" >
+        #{magregtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="maglastlogintime != null" >
+        #{maglastlogintime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.bicycle.dao.entity.ModuleManagerExample" resultType="java.lang.Integer" >
+    select count(*) from module_manager
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update module_manager
+    <set >
+      <if test="record.magid != null" >
+        MagId = #{record.magid,jdbcType=BIGINT},
+      </if>
+      <if test="record.magname != null" >
+        MagName = #{record.magname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.magsex != null" >
+        MagSex = #{record.magsex,jdbcType=INTEGER},
+      </if>
+      <if test="record.magaccount != null" >
+        MagAccount = #{record.magaccount,jdbcType=VARCHAR},
+      </if>
+      <if test="record.magpass != null" >
+        MagPass = #{record.magpass,jdbcType=VARCHAR},
+      </if>
+      <if test="record.magtel != null" >
+        MagTel = #{record.magtel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.magregtime != null" >
+        MagRegTime = #{record.magregtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.maglastlogintime != null" >
+        MagLastLoginTime = #{record.maglastlogintime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update module_manager
+    set MagId = #{record.magid,jdbcType=BIGINT},
+      MagName = #{record.magname,jdbcType=VARCHAR},
+      MagSex = #{record.magsex,jdbcType=INTEGER},
+      MagAccount = #{record.magaccount,jdbcType=VARCHAR},
+      MagPass = #{record.magpass,jdbcType=VARCHAR},
+      MagTel = #{record.magtel,jdbcType=VARCHAR},
+      MagRegTime = #{record.magregtime,jdbcType=TIMESTAMP},
+      MagLastLoginTime = #{record.maglastlogintime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bicycle.dao.entity.ModuleManager" >
+    update module_manager
+    <set >
+      <if test="magname != null" >
+        MagName = #{magname,jdbcType=VARCHAR},
+      </if>
+      <if test="magsex != null" >
+        MagSex = #{magsex,jdbcType=INTEGER},
+      </if>
+      <if test="magaccount != null" >
+        MagAccount = #{magaccount,jdbcType=VARCHAR},
+      </if>
+      <if test="magpass != null" >
+        MagPass = #{magpass,jdbcType=VARCHAR},
+      </if>
+      <if test="magtel != null" >
+        MagTel = #{magtel,jdbcType=VARCHAR},
+      </if>
+      <if test="magregtime != null" >
+        MagRegTime = #{magregtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="maglastlogintime != null" >
+        MagLastLoginTime = #{maglastlogintime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where MagId = #{magid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bicycle.dao.entity.ModuleManager" >
+    update module_manager
+    set MagName = #{magname,jdbcType=VARCHAR},
+      MagSex = #{magsex,jdbcType=INTEGER},
+      MagAccount = #{magaccount,jdbcType=VARCHAR},
+      MagPass = #{magpass,jdbcType=VARCHAR},
+      MagTel = #{magtel,jdbcType=VARCHAR},
+      MagRegTime = #{magregtime,jdbcType=TIMESTAMP},
+      MagLastLoginTime = #{maglastlogintime,jdbcType=TIMESTAMP}
+    where MagId = #{magid,jdbcType=BIGINT}
+  </update>
+</mapper>

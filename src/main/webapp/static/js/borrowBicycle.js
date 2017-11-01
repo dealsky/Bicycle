@@ -1,0 +1,189 @@
+$(document).ready(function () {
+
+    $(document).keydown(function(event){
+        if(event.keyCode === 13) {
+            $("#searchSite").trigger("click");
+        }
+    });
+
+    $("#checkSite").bind("change", function () {
+        var siteArea = $(this).find(":checked").text();
+        $(".site-table tbody").html("");
+        $(".page-site").html("");
+        $.ajax({
+            url: "/Bicycle/DisplaySite.do",
+            type: "POST",
+            dataType: "json",
+            data: {siteArea: siteArea, pageNum: 1},
+            success: function (data) {
+                var sites = data.sites;
+                var pageLen = data.pageLen;
+                for(var i = 0; i<sites.length; i++) {
+                    $(".site-table tbody").append("<tr>\n" +
+                        "                            <td>" + sites[i].sitenumber + "</td>\n" +
+                        "                            <td>" + sites[i].sitearea + "</td>\n" +
+                        "                            <td>" + sites[i].siteamount + "</td>\n" +
+                        "                        </tr>");
+                }
+                $(".page-site").append("<li><a onclick='pageTo(1, " + "\"" + siteArea + "\"" + ")'>&laquo;</a></li>");
+                for(var i = 1; i<=pageLen; i++) {
+                    if(i === 1) {
+                        $(".page-site").append("<li class='active'><a onclick='pageTo(" + i + "," + "\"" + siteArea + "\"" + ")'>" + i + "</a></li>");
+                    } else {
+                        $(".page-site").append("<li><a onclick='pageTo(" + i + "," + "\"" + siteArea + "\"" + ")'>" + i + "</a></li>");
+                    }
+                }
+                $(".page-site").append("<li><a onclick='pageTo(" + pageLen + "," + "\"" + siteArea + "\"" + ")'>&raquo;</a></li>");
+            },
+            error: function (xhr) {
+                console.log(xhr.responseText);
+            }
+        });
+    });
+
+    $("#searchSite").click(function () {
+        var siteNumber =  $("[name='siteNumber']").val();
+        $("#searchedSiteError").html("");
+        $(".searched-site tbody").html("");
+        $("#displayBicycleError").html("");
+        if(siteNumber === "") {
+            return;
+        }
+        if(isNaN(siteNumber)) {
+            $("#searchedSiteError").html("没有该站点!");
+            return;
+        }
+        $.ajax({
+            url: "/Bicycle/SearchSite.do",
+            type: "POST",
+            dataType: "json",
+            data: {siteNumber: siteNumber},
+            success: function (data) {
+                if(data.message === "error") {
+                    $("#searchedSiteError").html("没有该站点!");
+                } else {
+                    var site = data.site;
+                    $(".searched-site tbody").append("<tr>\n" +
+                        "                            <td>" + site.sitenumber + "</td>\n" +
+                        "                            <td>" + site.sitearea + "</td>\n" +
+                        "                            <td>" + site.siteamount + "</td>\n" +
+                        "                        </tr>");
+                    showBicycle(site.siteid, 1, 5);
+                }
+            },
+            error: function (xhr) {
+                console.log(xhr.responseText);
+            }
+        });
+        $("[name='siteNumber']").val("");
+    });
+
+});
+
+function getArea() {
+    var siteArea = $("#checkSite:first").nextAll().find(":checked").text();
+    $("#checkSite").html("<option disabled=\"disabled\" selected=\"selected\">选择一个区域</option>");
+    $.ajax({
+        url: "/Bicycle/GetArea.do",
+        type: "POST",
+        success: function (data) {
+            var len = data.sites.length;
+            for(var i = 0; i<len; i++) {
+                var str = "<option>" + data.sites[i] + "</option>";
+                $("#checkSite").append(str);
+            }
+        },
+        error: function (xhr) {
+            console.log(xhr.responseText);
+        }
+    });
+}
+
+function pageTo(pageNum, siteArea) {
+    $(".site-table tbody").html("");
+    $(".page-site").html("");
+    $.ajax({
+        url: "/Bicycle/DisplaySite.do",
+        type: "POST",
+        dataType: "json",
+        data: {siteArea: siteArea, pageNum: pageNum},
+        success: function (data) {
+            var sites = data.sites;
+            var pageLen = data.pageLen;
+            for(var i = 0; i<sites.length; i++) {
+                $(".site-table tbody").append("<tr>\n" +
+                    "                            <td>" + sites[i].sitenumber + "</td>\n" +
+                    "                            <td>" + sites[i].sitearea + "</td>\n" +
+                    "                            <td>" + sites[i].siteamount + "</td>\n" +
+                    "                        </tr>");
+            }
+            $(".page-site").append("<li><a onclick='pageTo(1, " + "\"" + siteArea + "\"" + ")'>&laquo;</a></li>");
+            for(var i = 1; i<=pageLen; i++) {
+                if(i === pageNum) {
+                    $(".page-site").append("<li class='active'><a onclick='pageTo(" + i + "," + "\"" + siteArea + "\"" + ")'>" + i + "</a></li>");
+                } else {
+                    $(".page-site").append("<li><a onclick='pageTo(" + i + "," + "\"" + siteArea + "\"" + ")'>" + i + "</a></li>");
+                }
+            }
+            $(".page-site").append("<li><a onclick='pageTo(" + pageLen + "," + "\"" + siteArea + "\"" + ")'>&raquo;</a></li>");
+        },
+        error: function (xhr) {
+            console.log(xhr.responseText);
+        }
+    });
+}
+
+function showBicycle(siteId, pageNum, pageSize) {
+    $(".bicycle-table tbody").html("");
+    $("#displayBicycleError").html("");
+    $(".page-bicycle").html("");
+    $.ajax({
+        url: "/Bicycle/DisplayBicycle.do",
+        type: "POST",
+        dataType: "json",
+        data: {
+            siteId: siteId,
+            pageNum: pageNum,
+            pageSize: pageSize
+        },
+        success: function (data) {
+            if(data.message === "right") {
+                for(var i = 0; i<data.bicycles.length; i++) {
+                    var bicycle = data.bicycles[i];
+                    $(".bicycle-table tbody").append("<tr>\n" +
+                        "                        <td>" + bicycle.bicnumber +"</td>\n" +
+                        "                        <td>" + bicycle.bictype + "</td>\n" +
+                        "                        <td>" + bicycle.bicrentprice + "</td>\n" +
+                        "                        <td>\n" +
+                        "                            <button type=\"button\" class=\"button button-rounded button-royal button-small borrow-button\">借车</button>\n" +
+                        "                        </td>\n" +
+                        "                    </tr>");
+                }
+                // 分页
+                $(".page-bicycle").append("<li><a onclick='changeClickBic(" + siteId + "," + pageNum + ",1" + ")'>&laquo;</a></li>");
+                for(var i = 1; i<=data.pageLen; i++) {
+                    if(i === pageNum) {
+                        $(".page-bicycle").append("<li class='active' onclick='changeClickBic(" + siteId + "," + pageNum + "," + i + ")'><a>" + i + "</a></li>");
+                    } else {
+                        $(".page-bicycle").append("<li><a onclick='changeClickBic(" + siteId + "," + pageNum + "," + i + ")'>" + i + "</a></li>");
+                    }
+                }
+                $(".page-bicycle").append("<li><a onclick='changeClickBic(" + siteId + "," + pageNum + "," + data.pageLen + ")'>&raquo;</a></li>");
+            } else {
+                $("#displayBicycleError").html("该站点没有车！");
+            }
+        },
+        error: function (xhr) {
+            console.log(xhr.responseText);
+        }
+    });
+}
+
+function changeClickBic(siteId, pageNow, pageNum) {
+    if(pageNow === pageNum) {
+        return;
+    } else {
+        showBicycle(siteId, pageNum, 5);
+    }
+
+}

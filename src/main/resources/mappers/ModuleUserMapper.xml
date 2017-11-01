@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bicycle.dao.ModuleUserMapper" >
+  <resultMap id="BaseResultMap" type="com.bicycle.dao.entity.ModuleUser" >
+    <id column="UserId" property="userid" jdbcType="BIGINT" />
+    <result column="UserName" property="username" jdbcType="VARCHAR" />
+    <result column="UserSex" property="usersex" jdbcType="INTEGER" />
+    <result column="UserAcc" property="useracc" jdbcType="VARCHAR" />
+    <result column="UserPass" property="userpass" jdbcType="VARCHAR" />
+    <result column="UserTel" property="usertel" jdbcType="VARCHAR" />
+    <result column="UserIdCard" property="useridcard" jdbcType="VARCHAR" />
+    <result column="UserEmail" property="useremail" jdbcType="VARCHAR" />
+    <result column="UserRegTime" property="userregtime" jdbcType="TIMESTAMP" />
+    <result column="UserLastLoginTime" property="userlastlogintime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    UserId, UserName, UserSex, UserAcc, UserPass, UserTel, UserIdCard, UserEmail, UserRegTime, 
+    UserLastLoginTime
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.bicycle.dao.entity.ModuleUserExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from module_user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from module_user
+    where UserId = #{userid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from module_user
+    where UserId = #{userid,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.bicycle.dao.entity.ModuleUserExample" >
+    delete from module_user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.bicycle.dao.entity.ModuleUser" >
+    insert into module_user (UserId, UserName, UserSex, 
+      UserAcc, UserPass, UserTel, 
+      UserIdCard, UserEmail, UserRegTime, 
+      UserLastLoginTime)
+    values (#{userid,jdbcType=BIGINT}, #{username,jdbcType=VARCHAR}, #{usersex,jdbcType=INTEGER}, 
+      #{useracc,jdbcType=VARCHAR}, #{userpass,jdbcType=VARCHAR}, #{usertel,jdbcType=VARCHAR}, 
+      #{useridcard,jdbcType=VARCHAR}, #{useremail,jdbcType=VARCHAR}, #{userregtime,jdbcType=TIMESTAMP}, 
+      #{userlastlogintime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.bicycle.dao.entity.ModuleUser" >
+    insert into module_user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userid != null" >
+        UserId,
+      </if>
+      <if test="username != null" >
+        UserName,
+      </if>
+      <if test="usersex != null" >
+        UserSex,
+      </if>
+      <if test="useracc != null" >
+        UserAcc,
+      </if>
+      <if test="userpass != null" >
+        UserPass,
+      </if>
+      <if test="usertel != null" >
+        UserTel,
+      </if>
+      <if test="useridcard != null" >
+        UserIdCard,
+      </if>
+      <if test="useremail != null" >
+        UserEmail,
+      </if>
+      <if test="userregtime != null" >
+        UserRegTime,
+      </if>
+      <if test="userlastlogintime != null" >
+        UserLastLoginTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userid != null" >
+        #{userid,jdbcType=BIGINT},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="usersex != null" >
+        #{usersex,jdbcType=INTEGER},
+      </if>
+      <if test="useracc != null" >
+        #{useracc,jdbcType=VARCHAR},
+      </if>
+      <if test="userpass != null" >
+        #{userpass,jdbcType=VARCHAR},
+      </if>
+      <if test="usertel != null" >
+        #{usertel,jdbcType=VARCHAR},
+      </if>
+      <if test="useridcard != null" >
+        #{useridcard,jdbcType=VARCHAR},
+      </if>
+      <if test="useremail != null" >
+        #{useremail,jdbcType=VARCHAR},
+      </if>
+      <if test="userregtime != null" >
+        #{userregtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userlastlogintime != null" >
+        #{userlastlogintime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.bicycle.dao.entity.ModuleUserExample" resultType="java.lang.Integer" >
+    select count(*) from module_user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update module_user
+    <set >
+      <if test="record.userid != null" >
+        UserId = #{record.userid,jdbcType=BIGINT},
+      </if>
+      <if test="record.username != null" >
+        UserName = #{record.username,jdbcType=VARCHAR},
+      </if>
+      <if test="record.usersex != null" >
+        UserSex = #{record.usersex,jdbcType=INTEGER},
+      </if>
+      <if test="record.useracc != null" >
+        UserAcc = #{record.useracc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userpass != null" >
+        UserPass = #{record.userpass,jdbcType=VARCHAR},
+      </if>
+      <if test="record.usertel != null" >
+        UserTel = #{record.usertel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.useridcard != null" >
+        UserIdCard = #{record.useridcard,jdbcType=VARCHAR},
+      </if>
+      <if test="record.useremail != null" >
+        UserEmail = #{record.useremail,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userregtime != null" >
+        UserRegTime = #{record.userregtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.userlastlogintime != null" >
+        UserLastLoginTime = #{record.userlastlogintime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update module_user
+    set UserId = #{record.userid,jdbcType=BIGINT},
+      UserName = #{record.username,jdbcType=VARCHAR},
+      UserSex = #{record.usersex,jdbcType=INTEGER},
+      UserAcc = #{record.useracc,jdbcType=VARCHAR},
+      UserPass = #{record.userpass,jdbcType=VARCHAR},
+      UserTel = #{record.usertel,jdbcType=VARCHAR},
+      UserIdCard = #{record.useridcard,jdbcType=VARCHAR},
+      UserEmail = #{record.useremail,jdbcType=VARCHAR},
+      UserRegTime = #{record.userregtime,jdbcType=TIMESTAMP},
+      UserLastLoginTime = #{record.userlastlogintime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bicycle.dao.entity.ModuleUser" >
+    update module_user
+    <set >
+      <if test="username != null" >
+        UserName = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="usersex != null" >
+        UserSex = #{usersex,jdbcType=INTEGER},
+      </if>
+      <if test="useracc != null" >
+        UserAcc = #{useracc,jdbcType=VARCHAR},
+      </if>
+      <if test="userpass != null" >
+        UserPass = #{userpass,jdbcType=VARCHAR},
+      </if>
+      <if test="usertel != null" >
+        UserTel = #{usertel,jdbcType=VARCHAR},
+      </if>
+      <if test="useridcard != null" >
+        UserIdCard = #{useridcard,jdbcType=VARCHAR},
+      </if>
+      <if test="useremail != null" >
+        UserEmail = #{useremail,jdbcType=VARCHAR},
+      </if>
+      <if test="userregtime != null" >
+        UserRegTime = #{userregtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userlastlogintime != null" >
+        UserLastLoginTime = #{userlastlogintime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where UserId = #{userid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bicycle.dao.entity.ModuleUser" >
+    update module_user
+    set UserName = #{username,jdbcType=VARCHAR},
+      UserSex = #{usersex,jdbcType=INTEGER},
+      UserAcc = #{useracc,jdbcType=VARCHAR},
+      UserPass = #{userpass,jdbcType=VARCHAR},
+      UserTel = #{usertel,jdbcType=VARCHAR},
+      UserIdCard = #{useridcard,jdbcType=VARCHAR},
+      UserEmail = #{useremail,jdbcType=VARCHAR},
+      UserRegTime = #{userregtime,jdbcType=TIMESTAMP},
+      UserLastLoginTime = #{userlastlogintime,jdbcType=TIMESTAMP}
+    where UserId = #{userid,jdbcType=BIGINT}
+  </update>
+</mapper>

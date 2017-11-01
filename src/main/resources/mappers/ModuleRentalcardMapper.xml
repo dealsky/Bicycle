@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bicycle.dao.ModuleRentalcardMapper" >
+  <resultMap id="BaseResultMap" type="com.bicycle.dao.entity.ModuleRentalcard" >
+    <id column="RecId" property="recid" jdbcType="BIGINT" />
+    <result column="UserId" property="userid" jdbcType="BIGINT" />
+    <result column="RecNumber" property="recnumber" jdbcType="BIGINT" />
+    <result column="RecBalance" property="recbalance" jdbcType="REAL" />
+    <result column="RecStatus" property="recstatus" jdbcType="INTEGER" />
+    <result column="RecOptime" property="recoptime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    RecId, UserId, RecNumber, RecBalance, RecStatus, RecOptime
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.bicycle.dao.entity.ModuleRentalcardExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from module_rentalcard
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from module_rentalcard
+    where RecId = #{recid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from module_rentalcard
+    where RecId = #{recid,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.bicycle.dao.entity.ModuleRentalcardExample" >
+    delete from module_rentalcard
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.bicycle.dao.entity.ModuleRentalcard" >
+    insert into module_rentalcard (RecId, UserId, RecNumber, 
+      RecBalance, RecStatus, RecOptime
+      )
+    values (#{recid,jdbcType=BIGINT}, #{userid,jdbcType=BIGINT}, #{recnumber,jdbcType=BIGINT}, 
+      #{recbalance,jdbcType=REAL}, #{recstatus,jdbcType=INTEGER}, #{recoptime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.bicycle.dao.entity.ModuleRentalcard" >
+    insert into module_rentalcard
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="recid != null" >
+        RecId,
+      </if>
+      <if test="userid != null" >
+        UserId,
+      </if>
+      <if test="recnumber != null" >
+        RecNumber,
+      </if>
+      <if test="recbalance != null" >
+        RecBalance,
+      </if>
+      <if test="recstatus != null" >
+        RecStatus,
+      </if>
+      <if test="recoptime != null" >
+        RecOptime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="recid != null" >
+        #{recid,jdbcType=BIGINT},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=BIGINT},
+      </if>
+      <if test="recnumber != null" >
+        #{recnumber,jdbcType=BIGINT},
+      </if>
+      <if test="recbalance != null" >
+        #{recbalance,jdbcType=REAL},
+      </if>
+      <if test="recstatus != null" >
+        #{recstatus,jdbcType=INTEGER},
+      </if>
+      <if test="recoptime != null" >
+        #{recoptime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.bicycle.dao.entity.ModuleRentalcardExample" resultType="java.lang.Integer" >
+    select count(*) from module_rentalcard
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update module_rentalcard
+    <set >
+      <if test="record.recid != null" >
+        RecId = #{record.recid,jdbcType=BIGINT},
+      </if>
+      <if test="record.userid != null" >
+        UserId = #{record.userid,jdbcType=BIGINT},
+      </if>
+      <if test="record.recnumber != null" >
+        RecNumber = #{record.recnumber,jdbcType=BIGINT},
+      </if>
+      <if test="record.recbalance != null" >
+        RecBalance = #{record.recbalance,jdbcType=REAL},
+      </if>
+      <if test="record.recstatus != null" >
+        RecStatus = #{record.recstatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.recoptime != null" >
+        RecOptime = #{record.recoptime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update module_rentalcard
+    set RecId = #{record.recid,jdbcType=BIGINT},
+      UserId = #{record.userid,jdbcType=BIGINT},
+      RecNumber = #{record.recnumber,jdbcType=BIGINT},
+      RecBalance = #{record.recbalance,jdbcType=REAL},
+      RecStatus = #{record.recstatus,jdbcType=INTEGER},
+      RecOptime = #{record.recoptime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bicycle.dao.entity.ModuleRentalcard" >
+    update module_rentalcard
+    <set >
+      <if test="userid != null" >
+        UserId = #{userid,jdbcType=BIGINT},
+      </if>
+      <if test="recnumber != null" >
+        RecNumber = #{recnumber,jdbcType=BIGINT},
+      </if>
+      <if test="recbalance != null" >
+        RecBalance = #{recbalance,jdbcType=REAL},
+      </if>
+      <if test="recstatus != null" >
+        RecStatus = #{recstatus,jdbcType=INTEGER},
+      </if>
+      <if test="recoptime != null" >
+        RecOptime = #{recoptime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where RecId = #{recid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bicycle.dao.entity.ModuleRentalcard" >
+    update module_rentalcard
+    set UserId = #{userid,jdbcType=BIGINT},
+      RecNumber = #{recnumber,jdbcType=BIGINT},
+      RecBalance = #{recbalance,jdbcType=REAL},
+      RecStatus = #{recstatus,jdbcType=INTEGER},
+      RecOptime = #{recoptime,jdbcType=TIMESTAMP}
+    where RecId = #{recid,jdbcType=BIGINT}
+  </update>
+</mapper>
