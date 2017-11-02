@@ -10,4 +10,5 @@ import java.util.List;
 public interface ParkService {
     List<ModulePark> getParkBySiteId(long siteId);
     PageInfo<ModulePark> getPageParkBySiteId(long siteId, Integer pageNum, Integer pageSize);
+    void deleteParkByBicId(long bicId);
 }

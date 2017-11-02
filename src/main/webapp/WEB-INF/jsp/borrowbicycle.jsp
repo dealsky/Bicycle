@@ -18,6 +18,9 @@
 <body onload="getArea()">
     <jsp:include page="common/nav.jsp"/>
     <div class="container">
+        <div class="borrow-message">
+
+        </div>
 
         <div class="borrow-bicycle">
 

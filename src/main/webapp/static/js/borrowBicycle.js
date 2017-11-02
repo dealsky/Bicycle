@@ -258,6 +258,48 @@ function changePageSize(siteId) {
 }
 
 function opBorrowModal(bicycleNumber) {
-    console.log(bicycleNumber);
-
+    $.ajax({
+        url: "/Bicycle/JudgmentBorrow.do",
+        type: "POST",
+        dataType: "json",
+        data: {bicycleNumber: bicycleNumber},
+        success: function (data) {
+            var meg = data.errorLog;
+            if(meg === "null") {
+                $(".borrow-message").html("<div class=\"alert alert-success\">\n" +
+                    "                <a href=\"#\" class=\"close\" data-dismiss=\"alert\">\n" +
+                    "                    &times;\n" +
+                    "                </a>\n" +
+                    "                <strong>成功！</strong>租借成功。\n" +
+                    "            </div>");
+                //window.location.href = "/Bicycle/Borrow";
+            } else if(meg === "money") {
+                $(".borrow-message").html("<div class=\"alert alert-danger\">\n" +
+                    "                <a href=\"#\" class=\"close\" data-dismiss=\"alert\">\n" +
+                    "                    &times;\n" +
+                    "                </a>\n" +
+                    "                <strong>错误！</strong>您的租借卡余额不足，请先充值。\n" +
+                    "            </div>");
+            } else if(meg === "card") {
+                $(".borrow-message").html("<div class=\"alert alert-danger\">\n" +
+                    "                <a href=\"#\" class=\"close\" data-dismiss=\"alert\">\n" +
+                    "                    &times;\n" +
+                    "                </a>\n" +
+                    "                <strong>错误！</strong>请先办理租借卡。\n" +
+                    "            </div>");
+            } else if(meg === "two") {
+                $(".borrow-message").html("<div class=\"alert alert-danger\">\n" +
+                    "                <a href=\"#\" class=\"close\" data-dismiss=\"alert\">\n" +
+                    "                    &times;\n" +
+                    "                </a>\n" +
+                    "                <strong>错误！</strong>同一时间只能租用一辆自行车。\n" +
+                    "            </div>");
+            } else {
+                window.location.href = "/Bicycle/Home";
+            }
+        },
+        error: function (xhr) {
+            console.log(xhr.responseText);
+        }
+    });
 }

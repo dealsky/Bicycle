@@ -47,4 +47,8 @@ public class BicycleServiceImpl implements BicycleService {
         List<ModuleBicycle> list = moduleBicycleMapper.selectByExample(moduleBicycleExample);
         return list;
     }
+
+    public void updateBicycle(ModuleBicycle moduleBicycle) {
+        moduleBicycleMapper.updateByPrimaryKeySelective(moduleBicycle);
+    }
 }

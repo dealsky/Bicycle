@@ -1,10 +1,7 @@
 package com.bicycle.controller;
 
 import com.bicycle.dao.entity.*;
-import com.bicycle.service.BicycleService;
-import com.bicycle.service.ParkService;
-import com.bicycle.service.RentalcardService;
-import com.bicycle.service.SiteService;
+import com.bicycle.service.*;
 import com.github.pagehelper.PageInfo;
 import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
@@ -31,40 +28,8 @@ public class BorrowBicycleController {
     private BicycleService bicycleService;
     @Resource
     private ParkService parkService;
-
-    /*
-    @RequestMapping("/Borrow")
-    public String borrow(HttpSession session, HttpServletRequest request) {
-        ModuleUser moduleUser = (ModuleUser) session.getAttribute("user");
-        if(moduleUser == null) {
-            return "redirect:Home";
-        } else {
-            long userId = moduleUser.getUserid();
-            List<ModuleRentalcard> list = rentalcardService.getModuleRentalcardByUserId(userId);
-            session.setAttribute("cards", list);
-
-            List<ModuleSite> list1 = siteService.getAllSite();
-            session.setAttribute("sites", list1);
-
-            Integer pageNum = request.getParameter("pageNum") == null ? 2 : Integer.valueOf(request.getParameter("pageNum"));
-
-            System.out.println(pageNum);
-
-            PageInfo<ModuleBicycle> pageInfo = bicycleService.getPageBicycle(pageNum, 10);
-            List<ModuleBicycle> list2 = pageInfo.getList();
-            long pageSize = 0;
-            if(pageInfo.getTotal()%10 == 0) {
-                pageSize = pageInfo.getTotal() / 10;
-            } else {
-                pageSize = pageInfo.getTotal() / 10 + 1;
-            }
-            Map<String, Object> map = new HashMap<>();
-            map.put("pageList", list2);
-            map.put("pageSize", pageSize);
-            session.setAttribute("bicycles", map);
-            return "borrowbicycle";
-        }
-    }*/
+    @Resource
+    private RentedService rentedService;
 
     @RequestMapping("/Borrow")
     public String borrow(HttpSession session) {
@@ -151,6 +116,52 @@ public class BorrowBicycleController {
         } else {
             map.put("message", "right");
             map.put("bicycle", list.get(0));
+        }
+        return map;
+    }
+
+    @RequestMapping("/JudgmentBorrow.do")
+    public @ResponseBody Map<String, Object> judgmentBorrow(@RequestParam long bicycleNumber, HttpSession session) {
+        Map<String, Object> map = new HashMap<>();
+        ModuleUser moduleUser = (ModuleUser) session.getAttribute("user");
+        if(moduleUser != null) {
+            List<ModuleBicycle> list = bicycleService.getBicycleByNumber(bicycleNumber);
+            ModuleBicycle moduleBicycle = list.get(0);
+            List<ModuleRentalcard> list1 = rentalcardService.getModuleRentalcardByUserId(moduleUser.getUserid());
+            List<ModuleRented> list2 = rentedService.getRentedByUserId(moduleUser.getUserid());
+            if(list2.size() == 0) {
+                if(list1.size() != 0) {
+                    ModuleRentalcard moduleRentalcard = list1.get(0);
+                    if(moduleRentalcard.getRecbalance() >= moduleBicycle.getBicrentprice()) {
+                        map.put("errorLog", "null");
+
+                        //  update Bicycle
+                        ModuleBicycle moduleBicycleNew = new ModuleBicycle();
+                        moduleBicycleNew.setBicid(moduleBicycle.getBicid());
+                        moduleBicycleNew.setBicborrowed(1);
+                        moduleBicycleNew.setBicborrowedcount(moduleBicycle.getBicborrowedcount() + 1);
+                        bicycleService.updateBicycle(moduleBicycleNew);
+
+                        //  delete park
+                        parkService.deleteParkByBicId(moduleBicycle.getBicid());
+
+                        //  insert Rented
+                        ModuleRented moduleRented = new ModuleRented();
+                        moduleRented.setUserid(moduleUser.getUserid());
+                        moduleRented.setBicid(moduleBicycle.getBicid());
+                        rentedService.insertRented(moduleRented);
+
+                    } else {
+                        map.put("errorLog", "money");
+                    }
+                } else {
+                    map.put("errorLog", "card");
+                }
+            } else {
+                map.put("errorLog", "two");
+            }
+        } else {
+            map.put("errorLog", "login");
         }
         return map;
     }

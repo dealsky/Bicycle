@@ -12,4 +12,5 @@ public interface BicycleService {
     PageInfo<ModuleBicycle> getPageBicycle(Integer pageNum, Integer pageSize);
     ModuleBicycle getBicycleById(long bicycleId);
     List<ModuleBicycle> getBicycleByNumber(long bicycleNumber);
+    void updateBicycle(ModuleBicycle moduleBicycle);
 }

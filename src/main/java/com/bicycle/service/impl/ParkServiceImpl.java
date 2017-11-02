@@ -39,4 +39,11 @@ public class ParkServiceImpl implements ParkService {
             return pageInfo;
         }
     }
+
+    public void deleteParkByBicId(long bicId) {
+        ModuleParkExample moduleParkExample = new ModuleParkExample();
+        ModuleParkExample.Criteria criteria = moduleParkExample.createCriteria();
+        criteria.andBicidEqualTo(bicId);
+        moduleParkMapper.deleteByExample(moduleParkExample);
+    }
 }
