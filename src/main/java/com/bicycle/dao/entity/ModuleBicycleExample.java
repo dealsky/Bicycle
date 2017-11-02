@@ -501,6 +501,66 @@ public class ModuleBicycleExample {
             addCriterion("BicBorrowed not between", value1, value2, "bicborrowed");
             return (Criteria) this;
         }
+
+        public Criteria andBicborrowedcountIsNull() {
+            addCriterion("BicBorrowedCount is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andBicborrowedcountIsNotNull() {
+            addCriterion("BicBorrowedCount is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andBicborrowedcountEqualTo(Integer value) {
+            addCriterion("BicBorrowedCount =", value, "bicborrowedcount");
+            return (Criteria) this;
+        }
+
+        public Criteria andBicborrowedcountNotEqualTo(Integer value) {
+            addCriterion("BicBorrowedCount <>", value, "bicborrowedcount");
+            return (Criteria) this;
+        }
+
+        public Criteria andBicborrowedcountGreaterThan(Integer value) {
+            addCriterion("BicBorrowedCount >", value, "bicborrowedcount");
+            return (Criteria) this;
+        }
+
+        public Criteria andBicborrowedcountGreaterThanOrEqualTo(Integer value) {
+            addCriterion("BicBorrowedCount >=", value, "bicborrowedcount");
+            return (Criteria) this;
+        }
+
+        public Criteria andBicborrowedcountLessThan(Integer value) {
+            addCriterion("BicBorrowedCount <", value, "bicborrowedcount");
+            return (Criteria) this;
+        }
+
+        public Criteria andBicborrowedcountLessThanOrEqualTo(Integer value) {
+            addCriterion("BicBorrowedCount <=", value, "bicborrowedcount");
+            return (Criteria) this;
+        }
+
+        public Criteria andBicborrowedcountIn(List<Integer> values) {
+            addCriterion("BicBorrowedCount in", values, "bicborrowedcount");
+            return (Criteria) this;
+        }
+
+        public Criteria andBicborrowedcountNotIn(List<Integer> values) {
+            addCriterion("BicBorrowedCount not in", values, "bicborrowedcount");
+            return (Criteria) this;
+        }
+
+        public Criteria andBicborrowedcountBetween(Integer value1, Integer value2) {
+            addCriterion("BicBorrowedCount between", value1, value2, "bicborrowedcount");
+            return (Criteria) this;
+        }
+
+        public Criteria andBicborrowedcountNotBetween(Integer value1, Integer value2) {
+            addCriterion("BicBorrowedCount not between", value1, value2, "bicborrowedcount");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

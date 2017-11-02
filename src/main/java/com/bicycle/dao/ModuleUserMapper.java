@@ -27,5 +27,4 @@ public interface ModuleUserMapper {
     int updateByPrimaryKeySelective(ModuleUser record);
 
     int updateByPrimaryKey(ModuleUser record);
-
 }

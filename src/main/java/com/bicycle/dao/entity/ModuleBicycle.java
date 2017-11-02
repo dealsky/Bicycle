@@ -15,6 +15,8 @@ public class ModuleBicycle {
 
     private Integer bicborrowed;
 
+    private Integer bicborrowedcount;
+
     public Long getBicid() {
         return bicid;
     }
@@ -61,5 +63,13 @@ public class ModuleBicycle {
 
     public void setBicborrowed(Integer bicborrowed) {
         this.bicborrowed = bicborrowed;
+    }
+
+    public Integer getBicborrowedcount() {
+        return bicborrowedcount;
+    }
+
+    public void setBicborrowedcount(Integer bicborrowedcount) {
+        this.bicborrowedcount = bicborrowedcount;
     }
 }
