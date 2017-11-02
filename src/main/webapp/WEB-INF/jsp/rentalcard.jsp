@@ -17,10 +17,15 @@
 </head>
 <body>
     <jsp:include page="common/nav.jsp"/>
+    <div class="can-not-add">
+
+    </div>
+
     <div class="container">
         <div class="cards">
             <script>
                 function rentalClose(recId) {
+                    console.log(recId);
                     $.post("/Bicycle/removeRentCard.do", {recId: recId}, function () {
                         window.location.href = "/Bicycle/RentalCard";
                     });
@@ -49,6 +54,31 @@
                         }
                     });
                 });
+
+                function addRentalCard() {
+                    $.ajax({
+                        url: "/Bicycle/addRentCard.do",
+                        type: "POST",
+                        success: function (data) {
+                            if(data.message === "right") {
+                                window.location.href = "RentalCard"
+                            } else if(data.message === "error") {
+                                $(".can-not-add").html("<div class=\"alert alert-warning\">\n" +
+                                    "            <a href=\"#\" class=\"close\" data-dismiss=\"alert\">\n" +
+                                    "                &times;\n" +
+                                    "            </a>\n" +
+                                    "            <strong>警告！</strong>你只能拥有一张租借卡。\n" +
+                                    "        </div>");
+                            } else {
+                                window.location.href = "/Bicycle/Home";
+                            }
+                        },
+                        error: function (xhr) {
+                            console.log(xhr.responseText);
+                        }
+                    });
+                }
+
             </script>
             <c:forEach items="${sessionScope.cards}" var = "card">
                 <c:set var="now" value="<%=new java.util.Date()%>" />
@@ -74,47 +104,8 @@
                 </div>
             </c:forEach>
 
-            <%--<div class="rental-card">
-                <div class="card-name">
-                    <p>租借卡</p>
-                    <div class="rental-upright">
-                        <i class="fa fa-lock fa-lg rental-lock"></i>
-                        <i class="fa fa-close fa-lg rental-close"></i>
-                    </div>
-                </div>
-                <div class="card-hr">
-                    <hr/>
-                </div>
-                <div class="card-message">
-                    <p class="rental-number">卡号　7400000000</p>
-                    <p class="rental-money">余额　2.22元</p>
-                    <p class="rental-time">办理时间　2017-11-11 12:12:12</p>
-                </div>
-                <i class="fa fa-bicycle fa-5x bicycle-icon"></i>
-            </div>
-
-
-            <div class="rental-card">
-                <div class="card-name">
-                    <p>租借卡</p>
-                    <div class="rental-upright">
-                        <i class="fa fa-close fa-lg rental-close"></i>
-                    </div>
-                </div>
-                <div class="card-hr">
-                    <hr/>
-                </div>
-                <div class="card-message">
-                    <p class="rental-number">卡号　7400000000</p>
-                    <p class="rental-money">余额　2.22元</p>
-                    <p class="rental-time">办理时间　2017-11-11 12:12:12</p>
-                </div>
-                <i class="fa fa-bicycle fa-5x bicycle-icon"></i>
-            </div>--%>
-
-
             <div class="add-card">
-                <a href="/Bicycle/addRentCard.do"><span class="glyphicon glyphicon-plus add-icon"></span></a>
+                <a onclick="addRentalCard()"><span class="glyphicon glyphicon-plus add-icon"></span></a>
                 <div class="add-card-message">
                     <p>添加租借卡</p>
                 </div>

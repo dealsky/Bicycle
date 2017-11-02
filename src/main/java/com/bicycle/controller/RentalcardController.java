@@ -7,10 +7,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Random;
 
 @Controller
 public class RentalcardController {
@@ -32,30 +36,28 @@ public class RentalcardController {
     }
 
     @RequestMapping("/addRentCard.do")
-    public String addRentCard(HttpSession session) {
-        List<ModuleRentalcard> list = (List<ModuleRentalcard>) session.getAttribute("cards");
+    public @ResponseBody Map<String, Object> addRentCard(HttpSession session) {
+        Map<String, Object> map = new HashMap<>();
         ModuleUser moduleUser = (ModuleUser) session.getAttribute("user");
         ModuleRentalcard moduleRentalcard = new ModuleRentalcard();
         if(moduleUser != null) {
             moduleRentalcard.setUserid(moduleUser.getUserid());
-            long recNumber = 0;
-            for(int i = 0; i<100; i++) {
-                recNumber = 7400000000L + moduleUser.getUserid()*100 + i;
-                List<ModuleRentalcard> list1 = rentalcardService.getModuleRentalcardByNumber(recNumber);
-                if(list1.size() == 0) {
-                    moduleRentalcard.setRecnumber(recNumber);
-                    break;
-                }
+            List<ModuleRentalcard> list = rentalcardService.getModuleRentalcardByUserId(moduleUser.getUserid());
+            if(list.size() == 0) {
+                Random random = new Random();
+                long recNumber = recNumber = 7400000000L + moduleUser.getUserid()*100 + random.nextInt(99);
+                moduleRentalcard.setRecnumber(recNumber);
+                moduleRentalcard.setRecbalance(0f);
+                moduleRentalcard.setRecstatus(0);
+                rentalcardService.insertModuleRentalcard(moduleRentalcard);
+                map.put("message", "right");
+            } else {
+                map.put("message", "error");
             }
-        }
-        moduleRentalcard.setRecbalance(0f);
-        moduleRentalcard.setRecstatus(0);
-        rentalcardService.insertModuleRentalcard(moduleRentalcard);
-        if(moduleUser==null) {
-            return "redirect:Home";
         } else {
-            return "redirect:RentalCard";
+            map.put("message", "null");
         }
+        return map;
     }
 
     @RequestMapping("/removeRentCard.do")
