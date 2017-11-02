@@ -20,13 +20,10 @@
     <div class="container">
 
         <div class="borrow-bicycle">
-            <div class="block">
-
-            </div>
 
             <div style="margin-bottom: 65px;">
                 <div>
-                    <button type="button" class="btn btn-primary" style="float: right" id="bicycleSearch">查询</button>
+                    <button type="button" class="btn btn-primary" style="float: right" id="bicycleSearch"><i class="fa fa-search"></i> 查询</button>
                 </div>
                 <div class="col-md-3" style="float: right;">
                     <input type="text" class="form-control bicycle-search-input" placeholder="自行车编号"/>
@@ -127,26 +124,5 @@
         </div>
 
     </div>
-    <!-- 模态框（Modal） -->
-    <div class="modal fade" id="borrowModal" tabindex="-1" role="dialog" aria-labelledby="borrowModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title" id="borrowModalLabel"><i class="fa fa-bicycle"></i>　自行车租借</h4>
-                </div>
-                <div class="modal-body">
-                    <div class="form-group">
-
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                    <button type="button" class="btn btn-primary">提交更改</button>
-                </div>
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal -->
-    </div>
-
 </body>
 </html>
