@@ -136,7 +136,16 @@
                     <h4 class="modal-title" id="borrowModalLabel"><i class="fa fa-bicycle"></i>　自行车租借</h4>
                 </div>
                 <div class="modal-body">
-
+                    <div class="form-group">
+                        <select class="form-control">
+                            <option disabled="disabled" selected="selected">选择租借卡</option>
+                            <option><span>卡号 123456</span><span style="margin-right: 30px;">余额12</span></option>
+                            <option><span>卡号 123456</span><span style="float: right">余额</span></option>
+                            <option><span>卡号 123456</span><span style="float: right">余额</span></option>
+                            <option><span>卡号 123456</span><span style="float: right">余额</span></option>
+                            <option><span>卡号 123456</span><span style="float: right">余额</span></option>
+                        </select>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>

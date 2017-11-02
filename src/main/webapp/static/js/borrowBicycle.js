@@ -260,5 +260,4 @@ function changePageSize(siteId) {
 function opBorrowModal(bicycleNumber) {
     console.log(bicycleNumber);
     $("#borrowModal").modal("show");
-    $("#borrowModal .modal-body").html(bicycleNumber);
 }
