@@ -23,42 +23,77 @@
         </div>
 
         <div class="borrow-bicycle">
-
-            <div style="margin-bottom: 65px;">
-                <div>
-                    <button type="button" class="btn btn-primary" style="float: right" id="bicycleSearch"><i class="fa fa-search"></i> 查询</button>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">自行车列表</h3>
                 </div>
-                <div class="col-md-3" style="float: right;">
-                    <input type="text" class="form-control bicycle-search-input" placeholder="自行车编号"/>
+                <div class="panel-body">
+                    <div style="margin-bottom: 65px;">
+                        <div>
+                            <button type="button" class="btn btn-primary" style="float: right" id="bicycleSearch"><i class="fa fa-search"></i> 查询</button>
+                        </div>
+                        <div class="col-md-3" style="float: right;">
+                            <input type="text" class="form-control bicycle-search-input" placeholder="自行车编号"/>
+                        </div>
+                    </div>
+
+                    <div class="bicycle-table">
+                        <table class="table table-hover table-striped table-bordered">
+                            <thead>
+                            <tr>
+                                <th>编号</th>
+                                <th>车型</th>
+                                <th>价格/小时</th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="pagination page-bicycle">
+
+                    </div>
+                    <div class="form-group table-length">
+
+                    </div>
+                    <div id="displayBicycleError">
+
+                    </div>
                 </div>
             </div>
 
-            <div class="bicycle-table">
-                <table class="table table-hover table-striped table-bordered">
-                    <thead>
-                    <tr>
-                        <th>编号</th>
-                        <th>车型</th>
-                        <th>价格/小时</th>
-                        <th></th>
-                    </tr>
-                    </thead>
-                    <tbody>
-
-                    </tbody>
-                </table>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">当前借车</h3>
+                </div>
+                <div class="return-table">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>自行车编号</th>
+                            <th>自行车类型</th>
+                            <th>租借时长</th>
+                            <th>预计扣款</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1000000</td>
+                                <td>A型</td>
+                                <td>120分钟</td>
+                                <td>20元</td>
+                                <td><button type="button" class="button button-rounded button-highlight button-small">还车</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
-            <div class="pagination page-bicycle">
-
-            </div>
-            <div class="form-group table-length">
-
-            </div>
-            <div id="displayBicycleError">
-
-            </div>
-
         </div>
+
+
 
         <div class="panel panel-default check-site">
             <div class="panel-heading">
@@ -125,7 +160,6 @@
                 </ul>
             </div>
         </div>
-
     </div>
 </body>
 </html>
