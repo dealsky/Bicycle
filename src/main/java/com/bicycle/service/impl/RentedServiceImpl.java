@@ -11,7 +11,7 @@ import javax.annotation.Resource;
 import java.util.List;
 
 @Service
-public class RentenServiceImpl implements RentedService{
+public class RentedServiceImpl implements RentedService{
 
     @Resource
     private ModuleRentedMapper moduleRentedMapper;
@@ -26,5 +26,12 @@ public class RentenServiceImpl implements RentedService{
         criteria.andUseridEqualTo(userId);
         List<ModuleRented> list = moduleRentedMapper.selectByExample(moduleRentedExample);
         return list;
+    }
+
+    public void deleteRentedByBicId(long bicId) {
+        ModuleRentedExample moduleRentedExample = new ModuleRentedExample();
+        ModuleRentedExample.Criteria criteria = moduleRentedExample.createCriteria();
+        criteria.andBicidEqualTo(bicId);
+        moduleRentedMapper.deleteByExample(moduleRentedExample);
     }
 }

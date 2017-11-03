@@ -46,4 +46,16 @@ public class ParkServiceImpl implements ParkService {
         criteria.andBicidEqualTo(bicId);
         moduleParkMapper.deleteByExample(moduleParkExample);
     }
+
+    public List<ModulePark> getParkByBicId(long bicId) {
+        ModuleParkExample moduleParkExample = new ModuleParkExample();
+        ModuleParkExample.Criteria criteria = moduleParkExample.createCriteria();
+        criteria.andBicidEqualTo(bicId);
+        List<ModulePark> list = moduleParkMapper.selectByExample(moduleParkExample);
+        return list;
+    }
+
+    public void insertPark(ModulePark modulePark) {
+        moduleParkMapper.insert(modulePark);
+    }
 }

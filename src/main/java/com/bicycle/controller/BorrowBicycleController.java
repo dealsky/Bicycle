@@ -142,6 +142,14 @@ public class BorrowBicycleController {
                         moduleBicycleNew.setBicborrowedcount(moduleBicycle.getBicborrowedcount() + 1);
                         bicycleService.updateBicycle(moduleBicycleNew);
 
+                        //  update Site
+                        ModulePark modulePark = parkService.getParkByBicId(moduleBicycle.getBicid()).get(0);
+                        ModuleSite moduleSite = siteService.getSiteById(modulePark.getSiteid());
+                        ModuleSite moduleSiteNew = new ModuleSite();
+                        moduleSiteNew.setSiteid(moduleSite.getSiteid());
+                        moduleSiteNew.setSiteamount(moduleSite.getSiteamount() - 1);
+                        siteService.updateSite(moduleSiteNew);
+
                         //  delete park
                         parkService.deleteParkByBicId(moduleBicycle.getBicid());
 

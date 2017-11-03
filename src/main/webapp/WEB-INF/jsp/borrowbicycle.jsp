@@ -64,7 +64,7 @@
                 </div>
             </div>
 
-            <div class="panel panel-default">
+            <div class="panel panel-default" id="returnBicycle">
                 <div class="panel-heading">
                     <h3 class="panel-title">当前借车</h3>
                 </div>
@@ -76,19 +76,17 @@
                             <th>自行车类型</th>
                             <th>租借时长</th>
                             <th>预计扣款</th>
+                            <th>还车站点</th>
                             <th></th>
                         </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>1000000</td>
-                                <td>A型</td>
-                                <td>120分钟</td>
-                                <td>20元</td>
-                                <td><button type="button" class="button button-rounded button-highlight button-small">还车</button></td>
-                            </tr>
+
                         </tbody>
                     </table>
+                </div>
+                <div class="error-message">
+
                 </div>
             </div>
         </div>

@@ -9,4 +9,5 @@ import java.util.List;
 public interface RentedService {
     void insertRented(ModuleRented moduleRented);
     List<ModuleRented> getRentedByUserId(long userId);
+    void deleteRentedByBicId(long bicId);
 }

@@ -74,4 +74,13 @@ public class SiteServiceImpl implements SiteService {
         List<ModuleSite> list = moduleSiteMapper.selectByExample(moduleSiteExample);
         return list;
     }
+
+    public void updateSite(ModuleSite moduleSite) {
+        moduleSiteMapper.updateByPrimaryKeySelective(moduleSite);
+    }
+
+    public ModuleSite getSiteById(long siteId) {
+        ModuleSite moduleSite = moduleSiteMapper.selectByPrimaryKey(siteId);
+        return moduleSite;
+    }
 }

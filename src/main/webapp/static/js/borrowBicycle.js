@@ -149,6 +149,8 @@ function getArea() {
             console.log(xhr.responseText);
         }
     });
+
+    displayRented();
 }
 
 function pageTo(pageNum, siteArea) {
@@ -273,6 +275,8 @@ function opBorrowModal(bicycleNumber) {
                     "                <strong>成功！</strong>租借成功。\n" +
                     "            </div>");
                 //window.location.href = "/Bicycle/Borrow";
+                displayRented();
+                $("#returnBicycle .error-message").html("");
             } else if(meg === "money") {
                 $(".borrow-message").html("<div class=\"alert alert-danger\">\n" +
                     "                <a href=\"#\" class=\"close\" data-dismiss=\"alert\">\n" +
@@ -302,4 +306,87 @@ function opBorrowModal(bicycleNumber) {
             console.log(xhr.responseText);
         }
     });
+}
+
+function displayRented() {
+    $.ajax({
+        url: "/Bicycle/DisplayRented.do",
+        type: "POST",
+        dataType: "json",
+        success: function (data) {
+            if(data.errorLog === "right") {
+                var bicycle = data.bicycle;
+                var rentTime = data.rentTime;
+                var nowTime = new Date().getTime();
+                var minutes = parseInt((nowTime - rentTime)/1000/60);
+                var price = bicycle.bicrentprice;
+                if(minutes % 60 === 0) {
+                    price = parseInt(minutes / 60) * price;
+                } else {
+                    price = (parseInt(minutes / 60) + 1) * price;
+                }
+                $("#returnBicycle tbody").html("<tr>\n" +
+                    "                                <td>" + bicycle.bicnumber + "</td>\n" +
+                    "                                <td>" + bicycle.bictype + "</td>\n" +
+                    "                                <td>" + minutes + "分钟</td>\n" +
+                    "                                <td><span class='return-price'>" + price + "</span>元</td>\n" +
+                    "                                <td width='50px'><input type='text' class='form-control return-site'/></td>\n" +
+                    "                                <td><button type=\"button\" class=\"button button-rounded button-highlight button-small\" onclick='returnBicycle(" + bicycle.bicid + ")'>还车</button></td>\n" +
+                    "                            </tr>");
+            } else if(data.errorLog === "noRented") {
+                $("#returnBicycle .error-message").html("");
+            } else {
+                window.location.href = "/Bicycle/Home";
+            }
+        },
+        error: function (xhr) {
+            console.log(xhr.responseText);
+        }
+    });
+}
+
+function returnBicycle(bicid) {
+    var siteNumber = $(".return-site").val();
+    var price = $(".return-price").text();
+    if(siteNumber === "") {
+        $(".borrow-message").html("<div class=\"alert alert-danger\">\n" +
+            "                <a href=\"#\" class=\"close\" data-dismiss=\"alert\">\n" +
+            "                    &times;\n" +
+            "                </a>\n" +
+            "                <strong>错误！</strong>请输入还车站点。\n" +
+            "            </div>");
+        return;
+    } else {
+        $.ajax({
+            url: "/Bicycle/ReturnBicycle.do",
+            type: "POST",
+            dataType: "json",
+            data: {
+                bicId: bicid,
+                siteNumber: siteNumber,
+                price: price
+            },
+            success: function (data) {
+                if(data.errorLog === "right") {
+                    $(".borrow-message").html("<div class=\"alert alert-success\">\n" +
+                        "                <a href=\"#\" class=\"close\" data-dismiss=\"alert\">\n" +
+                        "                    &times;\n" +
+                        "                </a>\n" +
+                        "                <strong>成功！</strong>还车成功。\n" +
+                        "            </div>");
+                    $("#returnBicycle tbody").html("");
+                } else {
+                    $(".borrow-message").html("<div class=\"alert alert-danger\">\n" +
+                        "                <a href=\"#\" class=\"close\" data-dismiss=\"alert\">\n" +
+                        "                    &times;\n" +
+                        "                </a>\n" +
+                        "                <strong>错误！</strong>该站点不存在。\n" +
+                        "            </div>");
+                }
+            },
+            error: function (xhr) {
+                console.log(xhr.responseText);
+            }
+        });
+    }
 }

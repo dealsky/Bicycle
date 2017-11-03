@@ -13,4 +13,6 @@ public interface SiteService {
     List<String> getAllSiteArea();
     PageInfo<ModuleSite> getPageSiteByArea(Integer pageNum, Integer pageSize, String siteArea);
     List<ModuleSite> getSiteByNumber(long siteNumber);
+    void updateSite(ModuleSite moduleSite);
+    ModuleSite getSiteById(long siteId);
 }
