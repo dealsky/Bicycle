@@ -9,7 +9,10 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class BicycleServiceImpl implements BicycleService {
@@ -50,5 +53,33 @@ public class BicycleServiceImpl implements BicycleService {
 
     public void updateBicycle(ModuleBicycle moduleBicycle) {
         moduleBicycleMapper.updateByPrimaryKeySelective(moduleBicycle);
+    }
+
+    public Map<String, Integer> getBicycleCount() {
+        Map<String, Integer> map = new HashMap<>();
+        ModuleBicycleExample moduleBicycleExample = new ModuleBicycleExample();
+        List<ModuleBicycle> list = moduleBicycleMapper.selectByExample(moduleBicycleExample);
+        List<String> typeList = new ArrayList<>();
+        typeList.add(list.get(0).getBictype());
+        for(int i = 1; i<list.size(); i++) {
+            boolean flag = true;
+            for (int j = 0; j < typeList.size(); j++) {
+                if (list.get(i).getBictype().equals(typeList.get(j))) {
+                    flag = false;
+                    break;
+                }
+            }
+            if (flag) {
+                typeList.add(list.get(i).getBictype());
+            }
+        }
+        for(int i = 0; i<typeList.size(); i++) {
+            moduleBicycleExample = new ModuleBicycleExample();
+            ModuleBicycleExample.Criteria criteria = moduleBicycleExample.createCriteria();
+            criteria.andBictypeEqualTo(typeList.get(i));
+            Integer count = moduleBicycleMapper.countByExample(moduleBicycleExample);
+            map.put(typeList.get(i), count);
+        }
+        return map;
     }
 }

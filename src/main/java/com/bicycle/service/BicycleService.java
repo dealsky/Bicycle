@@ -5,6 +5,7 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public interface BicycleService {
@@ -13,4 +14,5 @@ public interface BicycleService {
     ModuleBicycle getBicycleById(long bicycleId);
     List<ModuleBicycle> getBicycleByNumber(long bicycleNumber);
     void updateBicycle(ModuleBicycle moduleBicycle);
+    Map<String, Integer> getBicycleCount();
 }
