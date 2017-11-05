@@ -192,11 +192,13 @@
     margin: 20px;
 }
 
-.bicycle-count-chart {
-    width: 400px;
-    height: 400px;
-}
-
 .chart-body {
     margin-top: 40px;
+}
+
+.chart {
+    float: left;
+    width: 400px;
+    height: 400px;
+    text-align: center;
 }

@@ -15,4 +15,6 @@ public interface BicycleService {
     List<ModuleBicycle> getBicycleByNumber(long bicycleNumber);
     void updateBicycle(ModuleBicycle moduleBicycle);
     Map<String, Integer> getBicycleCount();
+    Map<String, Integer> getBicycleBorrowCount();
+    List<String> getBicycleType();
 }

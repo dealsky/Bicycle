@@ -17,8 +17,13 @@
     <jsp:include page="common/nav.jsp"/>
     <div class="container">
         <div class="chart-body">
-            <div class="bicycle-count-chart">
-                <canvas id="doughnutChart" width="400" height="400"></canvas>
+            <div class="chart">
+                <canvas id="typeCountChart" width="400" height="400"></canvas>
+                <p>自行车类型数量图</p>
+            </div>
+            <div class="chart" style="margin-left: 200px;">
+                <canvas id="borrowCountChart" width="400" height="400"></canvas>
+                <p>自行车租借次数图</p>
             </div>
         </div>
     </div>

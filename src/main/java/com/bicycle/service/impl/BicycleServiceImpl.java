@@ -55,8 +55,7 @@ public class BicycleServiceImpl implements BicycleService {
         moduleBicycleMapper.updateByPrimaryKeySelective(moduleBicycle);
     }
 
-    public Map<String, Integer> getBicycleCount() {
-        Map<String, Integer> map = new HashMap<>();
+    public List<String> getBicycleType() {
         ModuleBicycleExample moduleBicycleExample = new ModuleBicycleExample();
         List<ModuleBicycle> list = moduleBicycleMapper.selectByExample(moduleBicycleExample);
         List<String> typeList = new ArrayList<>();
@@ -73,11 +72,34 @@ public class BicycleServiceImpl implements BicycleService {
                 typeList.add(list.get(i).getBictype());
             }
         }
+        return typeList;
+    }
+
+    public Map<String, Integer> getBicycleCount() {
+        Map<String, Integer> map = new HashMap<>();
+        List<String> typeList = getBicycleType();
         for(int i = 0; i<typeList.size(); i++) {
-            moduleBicycleExample = new ModuleBicycleExample();
+            ModuleBicycleExample moduleBicycleExample = new ModuleBicycleExample();
             ModuleBicycleExample.Criteria criteria = moduleBicycleExample.createCriteria();
             criteria.andBictypeEqualTo(typeList.get(i));
             Integer count = moduleBicycleMapper.countByExample(moduleBicycleExample);
+            map.put(typeList.get(i), count);
+        }
+        return map;
+    }
+
+    public Map<String, Integer> getBicycleBorrowCount() {
+        Map<String, Integer> map = new HashMap<>();
+        List<String> typeList = getBicycleType();
+        for(int i = 0; i<typeList.size(); i++) {
+            ModuleBicycleExample moduleBicycleExample = new ModuleBicycleExample();
+            ModuleBicycleExample.Criteria criteria = moduleBicycleExample.createCriteria();
+            criteria.andBictypeEqualTo(typeList.get(i));
+            List<ModuleBicycle> list = moduleBicycleMapper.selectByExample(moduleBicycleExample);
+            Integer count = 0;
+            for(int j = 0; j<list.size(); j++) {
+                count += list.get(j).getBicborrowedcount();
+            }
             map.put(typeList.get(i), count);
         }
         return map;

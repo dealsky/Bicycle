@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import javax.persistence.criteria.CriteriaBuilder;
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.Map;
@@ -33,4 +34,9 @@ public class SituationController {
         return map;
     }
 
+    @RequestMapping("/BicycleBorrowCount.do")
+    public @ResponseBody Map<String, Integer> bicycleBorrowCount() {
+        Map<String, Integer> map = bicycleService.getBicycleBorrowCount();
+        return map;
+    }
 }
