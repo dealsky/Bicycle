@@ -10,15 +10,49 @@
 <head>
     <title>administer</title>
     <jsp:include page="common/head.jsp"/>
-    <script src="${pageContext.request.contextPath}/static/js/administer.js"></script>
-    <script src="${pageContext.request.contextPath}/static/js/situation.js"></script>
+
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/administer.css"/>
 </head>
 <body>
     <jsp:include page="common/administerNav.jsp"/>
-
+    <script>
+        $(document).ready(function () {
+            $("#managerLoginHref").click(function () {
+                login($("#managerAcc").val(), $("#managerPass").val());
+            });
+        });
+        function login(managerAcc, managerPass) {
+            if(managerAcc!=="" && managerPass!=="") {
+                $.ajax({
+                    url: "/Bicycle/ManagerLogin.do",
+                    type: "POST",
+                    dataType: "json",
+                    data: {
+                        managerAcc: managerAcc,
+                        managerPass: managerPass
+                    },
+                    success: function (data) {
+                        if(data.errorLog === "right") {
+                            window.location.href = "/Bicycle/Administer";
+                        } else if(data.errorLog === "pass") {
+                            console.log("密码错误");
+                        } else {
+                            console.log("无此账号");
+                        }
+                    },
+                    error: function (xhr) {
+                        console.log(xhr.responseText);
+                    }
+                });
+            } else {
+                console.log("good job!")
+            }
+        }
+    </script>
     <%
         if (session.getAttribute("manager") != null) {%>
+            <script src="${pageContext.request.contextPath}/static/js/administer.js"></script>
+            <script src="${pageContext.request.contextPath}/static/js/situation.js"></script>
             <div class="col-md-10 col-md-offset-2 main">
                 <h1 class="page-header">概况</h1>
                 <div class="col-md-4 chart">

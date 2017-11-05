@@ -1,38 +1,6 @@
 $(document).ready(function () {
-
-    $("#managerLoginHref").click(function () {
-        login($("#managerAcc").val(), $("#managerPass").val());
-    });
     countSite();
 });
-
-function login(managerAcc, managerPass) {
-    if(managerAcc!=="" && managerPass!=="") {
-        $.ajax({
-            url: "/Bicycle/ManagerLogin.do",
-            type: "POST",
-            dataType: "json",
-            data: {
-                managerAcc: managerAcc,
-                managerPass: managerPass
-            },
-            success: function (data) {
-                if(data.errorLog === "right") {
-                    window.location.href = "/Bicycle/Administer";
-                } else if(data.errorLog === "pass") {
-                    console.log("密码错误");
-                } else {
-                    console.log("无此账号");
-                }
-            },
-            error: function (xhr) {
-                console.log(xhr.responseText);
-            }
-        });
-    } else {
-        console.log("good job!")
-    }
-}
 
 function countSite() {
 

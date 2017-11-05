@@ -13,13 +13,13 @@
         </div>
         <%
             if(session.getAttribute("manager") == null){%>
-        <ul class="nav navbar-nav navbar-right">
-            <li><a id="managerLoginHref" style="cursor: pointer;">登录</a></li>
-        </ul>
-        <form class="navbar-form navbar-right">
-            <input type="text" class="form-control" id="managerAcc" placeholder="账号">
-            <input type="password" class="form-control" id="managerPass" placeholder="密码">
-        </form>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a id="managerLoginHref" style="cursor: pointer;">登录</a></li>
+                </ul>
+                <form class="navbar-form navbar-right">
+                    <input type="text" class="form-control" id="managerAcc" placeholder="账号">
+                    <input type="password" class="form-control" id="managerPass" placeholder="密码">
+                </form>
         <%}
         else{%>
         <ul class="nav navbar-nav navbar-right">
@@ -42,12 +42,12 @@
     <div class="row">
         <div class="col-md-2 sidebar">
             <ul class="nav nav-sidebar">
-                <li class="active"><a href="/Bicycle/Administer">概述<span class="sr-only">(current)</span></a></li>
-                <li><a href="#">自行车管理</a></li>
-                <li><a href="#">站点管理</a></li>
+                <li class="over-view active"><a href="/Bicycle/Administer">概述<span class="sr-only">(current)</span></a></li>
+                <li><a href="/Bicycle/ManageBicycle" class="manage-bicycle">自行车管理</a></li>
+                <li><a href="javascript:void(0)" class="manage-site">站点管理</a></li>
             </ul>
             <ul class="nav nav-sidebar">
-                <li><a href="#">信息编辑</a></li>
+                <li><a href="javascript:void(0)">信息编辑</a></li>
             </ul>
         </div>
     </div>

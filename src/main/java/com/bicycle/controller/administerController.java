@@ -1,6 +1,8 @@
 package com.bicycle.controller;
 
+import com.bicycle.dao.entity.ModuleBicycle;
 import com.bicycle.dao.entity.ModuleManager;
+import com.bicycle.service.BicycleService;
 import com.bicycle.service.ManagerService;
 import com.bicycle.service.SiteService;
 import org.springframework.stereotype.Controller;
@@ -24,9 +26,21 @@ public class administerController {
     @Resource
     private SiteService siteService;
 
+    @Resource
+    private BicycleService bicycleService;
+
     @RequestMapping("/Administer")
     public String administer() {
         return "administer";
+    }
+
+    @RequestMapping("/ManageBicycle")
+    public String manageBicycle(HttpSession session) {
+        if(session.getAttribute("manager") != null) {
+            return "managebicycle";
+        } else {
+            return "redirect:Administer";
+        }
     }
 
     @RequestMapping("/ManagerLogin.do")
@@ -54,12 +68,18 @@ public class administerController {
     @RequestMapping("/ManagerLogout.do")
     public String managerLogout(HttpSession httpSession) {
         httpSession.removeAttribute("manager");
-        return "administer";
+        return "redirect:Administer";
     }
 
     @RequestMapping("/CountSite.do")
     public @ResponseBody Map<String, Integer> countSite() {
         Map<String, Integer> map = siteService.getSiteCount();
         return map;
+    }
+
+    @RequestMapping("/TableBicycle.do")
+    public @ResponseBody List<ModuleBicycle> tableBicycle() {
+        List<ModuleBicycle> list = bicycleService.getAllBicycle();
+        return list;
     }
 }
