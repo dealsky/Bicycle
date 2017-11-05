@@ -38,7 +38,7 @@
                     </div>
 
                     <div class="bicycle-table">
-                        <table class="table table-hover table-striped table-bordered">
+                        <table class="table table-hover table-striped">
                             <thead>
                             <tr>
                                 <th>编号</th>

@@ -48,7 +48,7 @@ public class UserLoginOrLogoutController {
 
     @RequestMapping("/logout.do")
     public String logout(HttpSession httpSession) {
-        httpSession.invalidate();
+        httpSession.removeAttribute("user");
         return "redirect:Home";
     }
 

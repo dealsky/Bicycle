@@ -5,6 +5,7 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public interface SiteService {
@@ -15,4 +16,5 @@ public interface SiteService {
     List<ModuleSite> getSiteByNumber(long siteNumber);
     void updateSite(ModuleSite moduleSite);
     ModuleSite getSiteById(long siteId);
+    Map<String, Integer> getSiteCount();
 }

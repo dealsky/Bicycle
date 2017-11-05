@@ -154,8 +154,8 @@ function getArea() {
 }
 
 function pageTo(pageNum, siteArea) {
-    $(".site-table tbody").html("");
-    $(".page-site").html("");
+    //$(".site-table tbody").html("");
+    //$(".page-site").html("");
     $.ajax({
         url: "/Bicycle/DisplaySite.do",
         type: "POST",
@@ -164,14 +164,17 @@ function pageTo(pageNum, siteArea) {
         success: function (data) {
             var sites = data.sites;
             var pageLen = data.pageLen;
+            var str = "";
             for(var i = 0; i<sites.length; i++) {
-                $(".site-table tbody").append("<tr>\n" +
+                str += "<tr>\n" +
                     "                            <td>" + sites[i].sitenumber + "</td>\n" +
                     "                            <td>" + sites[i].sitearea + "</td>\n" +
                     "                            <td>" + sites[i].siteamount + "</td>\n" +
-                    "                        </tr>");
+                    "                        </tr>";
             }
-            $(".page-site").append("<li><a onclick='pageTo(1, " + "\"" + siteArea + "\"" + ")'>&laquo;</a></li>");
+            $(".site-table tbody").html(str);
+
+            $(".page-site").html("<li><a onclick='pageTo(1, " + "\"" + siteArea + "\"" + ")'>&laquo;</a></li>");
             for(var i = 1; i<=pageLen; i++) {
                 if(i === pageNum) {
                     $(".page-site").append("<li class='active'><a onclick='pageTo(" + i + "," + "\"" + siteArea + "\"" + ")'>" + i + "</a></li>");
@@ -188,10 +191,7 @@ function pageTo(pageNum, siteArea) {
 }
 
 function showBicycle(siteId, pageNum, pageSize) {
-    $(".bicycle-table tbody").html("");
     $("#displayBicycleError").html("");
-    $(".page-bicycle").html("");
-    $(".table-length").html("");
     $.ajax({
         url: "/Bicycle/DisplayBicycle.do",
         type: "POST",
@@ -202,20 +202,23 @@ function showBicycle(siteId, pageNum, pageSize) {
             pageSize: pageSize
         },
         success: function (data) {
+            var str = "";
             if(data.message === "right") {
                 for(var i = 0; i<data.bicycles.length; i++) {
                     var bicycle = data.bicycles[i];
-                    $(".bicycle-table tbody").append("<tr>\n" +
+                    str += "<tr>\n" +
                         "                        <td>" + bicycle.bicnumber +"</td>\n" +
                         "                        <td>" + bicycle.bictype + "</td>\n" +
                         "                        <td>" + bicycle.bicrentprice + "</td>\n" +
                         "                        <td>\n" +
                         "                            <button type=\"button\" class=\"button button-rounded button-royal button-small borrow-button\" onclick='opBorrowModal(" + bicycle.bicnumber+ ")'>借车</button>\n" +
                         "                        </td>\n" +
-                        "                    </tr>");
+                        "                    </tr>";
                 }
+                $(".bicycle-table tbody").html(str);
+
                 // 分页
-                $(".page-bicycle").append("<li><a onclick='changeClickBic(" + siteId + "," + pageNum + ",1" + ")'>&laquo;</a></li>");
+                $(".page-bicycle").html("<li><a onclick='changeClickBic(" + siteId + "," + pageNum + ",1" + ")'>&laquo;</a></li>");
                 for(var i = 1; i<=data.pageLen; i++) {
                     if(i === pageNum) {
                         $(".page-bicycle").append("<li class='active' onclick='changeClickBic(" + siteId + "," + pageNum + "," + i + ")'><a>" + i + "</a></li>");
@@ -224,7 +227,7 @@ function showBicycle(siteId, pageNum, pageSize) {
                     }
                 }
                 $(".page-bicycle").append("<li><a onclick='changeClickBic(" + siteId + "," + pageNum + "," + data.pageLen + ")'>&raquo;</a></li>");
-                $(".table-length").append("<select class=\"form-control\" onchange='changePageSize(" + siteId + ")'>\n" +
+                $(".table-length").html("<select class=\"form-control\" onchange='changePageSize(" + siteId + ")'>\n" +
                     "                    <option>3</option>\n" +
                     "                    <option>5</option>\n" +
                     "                    <option>10</option>\n" +

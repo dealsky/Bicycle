@@ -10,7 +10,9 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 @Service
@@ -82,5 +84,14 @@ public class SiteServiceImpl implements SiteService {
     public ModuleSite getSiteById(long siteId) {
         ModuleSite moduleSite = moduleSiteMapper.selectByPrimaryKey(siteId);
         return moduleSite;
+    }
+
+    public Map<String, Integer> getSiteCount() {
+        Map<String, Integer> map = new HashMap<>();
+        List<ModuleSite> list = getAllSite();
+        for(int i = 0; i<list.size(); i++) {
+            map.put(String.valueOf(list.get(i).getSitenumber()), list.get(i).getSiteamount());
+        }
+        return map;
     }
 }
