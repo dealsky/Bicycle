@@ -104,4 +104,12 @@ public class BicycleServiceImpl implements BicycleService {
         }
         return map;
     }
+
+    public void insertBicycle(ModuleBicycle moduleBicycle) {
+        moduleBicycleMapper.insert(moduleBicycle);
+    }
+
+    public void deleteBicycleById(long bicId) {
+        moduleBicycleMapper.deleteByPrimaryKey(bicId);
+    }
 }

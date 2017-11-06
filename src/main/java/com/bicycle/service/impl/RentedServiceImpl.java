@@ -34,4 +34,12 @@ public class RentedServiceImpl implements RentedService{
         criteria.andBicidEqualTo(bicId);
         moduleRentedMapper.deleteByExample(moduleRentedExample);
     }
+
+    public List<ModuleRented> getRentedByBicId(long bicId) {
+        ModuleRentedExample moduleRentedExample = new ModuleRentedExample();
+        ModuleRentedExample.Criteria criteria = moduleRentedExample.createCriteria();
+        criteria.andBicidEqualTo(bicId);
+        List<ModuleRented> list = moduleRentedMapper.selectByExample(moduleRentedExample);
+        return list;
+    }
 }

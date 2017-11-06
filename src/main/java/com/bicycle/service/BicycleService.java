@@ -17,4 +17,6 @@ public interface BicycleService {
     Map<String, Integer> getBicycleCount();
     Map<String, Integer> getBicycleBorrowCount();
     List<String> getBicycleType();
+    void insertBicycle(ModuleBicycle moduleBicycle);
+    void deleteBicycleById(long bicId);
 }

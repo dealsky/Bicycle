@@ -101,7 +101,7 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.bicycle.dao.entity.ModuleBicycle" >
+  <insert id="insert" parameterType="com.bicycle.dao.entity.ModuleBicycle" useGeneratedKeys="true" keyProperty="bicid">
     insert into module_bicycle (BicId, BicNumber, BicType, 
       BicRentPrice, BicBuytime, BicBorrowed, 
       BicBorrowedCount)

@@ -49,3 +49,16 @@
 .chart {
     text-align: center;
 }
+
+.spacing {
+    margin-bottom: 20px;
+}
+
+.glyp-right {
+    margin-right: 15px;
+}
+
+.error-message {
+    color: #a94442;
+    font-size: 12px;
+}

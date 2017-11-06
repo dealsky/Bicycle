@@ -10,4 +10,5 @@ public interface RentedService {
     void insertRented(ModuleRented moduleRented);
     List<ModuleRented> getRentedByUserId(long userId);
     void deleteRentedByBicId(long bicId);
+    List<ModuleRented> getRentedByBicId(long bicId);
 }
