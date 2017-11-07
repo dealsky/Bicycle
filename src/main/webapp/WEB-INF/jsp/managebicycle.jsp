@@ -39,10 +39,10 @@
         <div id="toolbar">
             <div class="btn-group">
                 <button class="btn btn-default" data-toggle="modal" data-target="#modalAddTable">
-                    <i class="fa fa-plus fa-lg"></i>
+                    <i class="fa fa-plus fa-lg"></i> 新增
                 </button>
                 <button class="btn btn-default" id="delete-table">
-                    <i class="fa fa-trash fa-lg"></i>
+                    <i class="fa fa-trash fa-lg"></i> 删除
                 </button>
             </div>
         </div>

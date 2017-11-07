@@ -7,36 +7,89 @@ $(document).ready(function () {
 
     $('#BicycleTable').bootstrapTable({
         columns: [
-            { fileid: 'bicycle.bicid', checkbox: true},
-            { field: 'bicycle.bicnumber', title: '编号', sortable: true},
-            { field: 'bicycle.bictype', title: '类型', sortable: true},
-            { field: 'bicycle.bicrentprice', title: '价格/(小时)', sortable: true, editable: true},
-            { field: 'site.sitenumber', title: '站点编号', sortable: true, formatter: function (value) {
-                if(value === null) {
-                    return "无";
-                } else {
-                    return value;
+            {
+                fileid: 'bicycle.bicid',
+                checkbox: true
+            },
+            {
+                field: 'bicycle.bicnumber',
+                title: '编号',
+                sortable: true
+            },
+            {
+                field: 'bicycle.bictype',
+                title: '类型',
+                sortable: true
+            },
+            {
+                field: 'bicycle.bicrentprice',
+                title: '价格/(小时)',
+                sortable: true,
+                editable: {
+                    type: "text",
+                    title: "价格/(小时)",
+                    width: "10%",
+                    align: "center",
+                    validate: function(v) {
+                        if(!v)
+                            return "不能为空";
+                        if(isNaN(v))
+                            return "输入必须为数字";
+                    }
                 }
-            }, searchable: false},
-            { field: 'user.username', title: '租借者', sortable: true, formatter: function (value) {
-                if(value === null) {
-                    return "无";
-                } else {
-                    return value;
+            },
+            {
+                field: 'site.sitenumber',
+                title: '站点编号',
+                sortable: true,
+                formatter: function (value) {
+                    if(value === null) {
+                        return "无";
+                    } else {
+                        return value;
+                    }
+                },
+                searchable: false
+            },
+            {
+                field: 'user.username',
+                title: '租借者',
+                sortable: true,
+                formatter: function (value) {
+                    if(value === null) {
+                        return "无";
+                    } else {
+                        return value;
+                    }
+                },
+                searchable: false
+            },
+            {
+                field: 'bicycle.bicborrowed',
+                title: '借还状态',
+                sortable: true,
+                formatter: function (value) {
+                    if(value === 1) {
+                        return "被借";
+                    } else {
+                        return "没被借";
+                    }
                 }
-            }, searchable: false},
-            { field: 'bicycle.bicborrowed', title: '借还状态', sortable: true, formatter: function (value) {
-                if(value === 1) {
-                    return "被借";
-                } else {
-                    return "没被借";
+            },
+            {
+                field: 'bicycle.bicborrowedcount',
+                title: '被借次数',
+                sortable: true
+            },
+            {
+                field: 'bicycle.bicbuytime',
+                title: '购买时间',
+                sortable: true,
+                formatter: function (value) {
+                    var date = new Date(value);
+                    return date.getFullYear() + "-" + date.getMonth() + "-" + date.getDate();
                 }
-            }},
-            { field: 'bicycle.bicborrowedcount', title: '被借次数', sortable: true},
-            { field: 'bicycle.bicbuytime', title: '购买时间', sortable: true, formatter: function (value) {
-                var date = new Date(value);
-                return date.getFullYear() + "-" + date.getMonth() + "-" + date.getDate();
-            }}
+            }
         ],
         url: "/Bicycle/TableBicycle.do",
         method: "POST",
@@ -51,7 +104,36 @@ $(document).ready(function () {
         paginationLoop: false,
         paginationPreText: "前一页",
         paginationNextText: "后一页",
-        height: 450
+        height: 450,
+        onEditableSave: function (field, row, oldValue, $el) {
+            // console.log(field);
+            // console.log(oldValue);
+            // console.log($el);
+            row.bicycle.bicrentprice = row[field];
+            console.log(row.bicycle)
+            $.ajax({
+                type: "POST",
+                url: "/Bicycle/EditBicycle.do",
+                dataType: "json",
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify(row),
+                success: function (data) {
+                    var opt = {
+                        url: "/Bicycle/TableBicycle.do",
+                        silent: true,
+                        query:{
+                            type:1,
+                            level:2
+                        }
+                    };
+                    $('#BicycleTable').bootstrapTable('refresh', opt);
+                    alert("修改成功！");
+                },
+                error: function (xhr) {
+                    console.log(xhr.responseText);
+                }
+            });
+        }
     });
 
     $("#addTableConfirm").bind("click", addTable);

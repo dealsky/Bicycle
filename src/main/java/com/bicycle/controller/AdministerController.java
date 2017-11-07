@@ -149,6 +149,9 @@ public class AdministerController {
         modulePark.setSiteid(moduleSite.getSiteid());
         parkService.insertPark(modulePark);
 
+        moduleSite.setSiteamount(moduleSite.getSiteamount() + 1);
+        siteService.updateSite(moduleSite);
+
         Map<String, Object> map = new HashMap<>();
         map.put("errorLog", "right");
         return map;
@@ -159,12 +162,34 @@ public class AdministerController {
         Map<String, Object> map = new HashMap<>();
         for(ModuleBicycle bicycle: moduleBicycle) {
             if(bicycle.getBicborrowed() == 0) {
+                List<ModulePark> list = parkService.getParkByBicId(bicycle.getBicid());
+                ModulePark modulePark = list.get(0);
+                ModuleSite moduleSite = siteService.getSiteById(modulePark.getSiteid());
+                moduleSite.setSiteamount(moduleSite.getSiteamount() - 1);
+                siteService.updateSite(moduleSite);
                 parkService.deleteParkByBicId(bicycle.getBicid());
             } else {
                 rentedService.deleteRentedByBicId(bicycle.getBicid());
             }
             bicycleService.deleteBicycleById(bicycle.getBicid());
         }
+        map.put("errorLog", "right");
+        return map;
+    }
+
+    @RequestMapping("/EditBicycle.do")
+    public @ResponseBody Map<String, Object> editBicycle(@RequestBody Map<String, Object> mapAll) {
+        Map<String, Object> map = new HashMap<>();
+        Map<String, Object> mapBicycle = (Map<String, Object>) mapAll.get("bicycle");
+        ModuleBicycle moduleBicycle = new ModuleBicycle();
+        moduleBicycle.setBicrentprice(Float.valueOf((String) mapAll.get("bicycle.bicrentprice")));
+        moduleBicycle.setBicid(Long.valueOf((Integer)mapBicycle.get("bicid")));
+
+        System.out.println(moduleBicycle.getBicid());
+        System.out.println(moduleBicycle.getBicrentprice());
+
+        bicycleService.updateBicycle(moduleBicycle);
+
         map.put("errorLog", "right");
         return map;
     }
