@@ -10,4 +10,5 @@ import java.util.Map;
 public interface ManagerService {
     List<ModuleManager> getManagerByAcc(String managerAcc);
     void updateManager(ModuleManager moduleManager);
+    ModuleManager getManagerById(long magId);
 }

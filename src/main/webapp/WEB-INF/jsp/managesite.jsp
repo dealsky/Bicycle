@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
   User: boxa
-  Date: 2017/11/5
-  Time: 18:13
+  Date: 2017/11/8
+  Time: 8:51
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -19,8 +19,7 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.1/locale/bootstrap-table-zh-CN.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/js/bootstrap-editable.min.js"></script>
     <script src="https://cdn.bootcss.com/bootstrap-table/1.11.1/extensions/editable/bootstrap-table-editable.js"></script>
-    <script src="${pageContext.request.contextPath}/static/js/managerBicycle.js"></script>
-
+    <script src="${pageContext.request.contextPath}/static/js/manageSite.js"></script>
 </head>
 <body>
     <jsp:include page="common/administerNav.jsp"/>
@@ -30,12 +29,12 @@
             $(".nav-sidebar li").each(function () {
                 $(this).removeClass("active");
             });
-            $(".manage-bicycle").parent().addClass("active");
+            $(".manage-site").parent().addClass("active");
         });
     </script>
 
     <div class="col-md-10 col-md-offset-2 main">
-        <h1 class="page-header">自行车管理</h1>
+        <h1 class="page-header">站点管理</h1>
         <div id="toolbar">
             <div class="btn-group">
                 <button class="btn btn-default" data-toggle="modal" data-target="#modalAddTable">
@@ -46,9 +45,8 @@
                 </button>
             </div>
         </div>
-        <table id="BicycleTable" data-toolbar="#toolbar"></table>
+        <table id="SiteTable" data-toolbar="#toolbar"></table>
     </div>
-
     <div class="modal fade" id="modalAddTable" role="dialog" aria-labelledby="modalLabelAddTable" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -57,43 +55,22 @@
                     <h4 class="modal-title" id="modalLabelAddTable">添加数据</h4>
                 </div>
                 <div class="modal-body">
-                    <div class="row spacing form-group has-feedback" id="bicType">
+                    <div class="row spacing form-group has-feedback" id="magId">
                         <div class="col-md-3 col-md-offset-2">
-                            <label for="bic-type" class="control-label">类型</label>
+                            <label for="mag-id" class="control-label">管理员ID</label>
                         </div>
                         <div class="col-md-5">
-                            <input id="bic-type" type="text" class="form-control"/>
+                            <input id="mag-id" type="text" class="form-control"/>
                             <div class="feed-back">
                             </div>
                         </div>
                     </div>
-                    <div class="row spacing form-group has-feedback" id="bicPrice">
+                    <div class="row spacing form-group has-feedback" id="siteArea">
                         <div class="col-md-3 col-md-offset-2">
-                            <label for="bic-price" class="control-label">价格(元/小时)</label>
+                            <label for="site-area" class="control-label">所属区域</label>
                         </div>
                         <div class="col-md-5">
-                            <input id="bic-price" type="text" class="form-control"/>
-                            <div class="feed-back">
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="row spacing form-group has-feedback" id="bicSite">
-                        <div class="col-md-3 col-md-offset-2">
-                            <label for="bic-site" class="control-label">站点</label>
-                        </div>
-                        <div class="col-md-5">
-                            <input id="bic-site" type="text" class="form-control"/>
-                            <div class="feed-back">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row spacing form-group has-feedback" id="bicTime">
-                        <div class="col-md-3 col-md-offset-2">
-                            <label for="bic-time" class="control-label">购买时间</label>
-                        </div>
-                        <div class="col-md-5">
-                            <input id="bic-time" type="date" class="form-control"/>
+                            <input id="site-area" type="text" class="form-control"/>
                             <div class="feed-back">
                             </div>
                         </div>

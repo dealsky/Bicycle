@@ -31,4 +31,8 @@ public class ManagerServiceImpl implements ManagerService{
         moduleManagerMapper.updateByPrimaryKeySelective(moduleManager);
     }
 
+    public ModuleManager getManagerById(long magId) {
+        ModuleManager moduleManager = moduleManagerMapper.selectByPrimaryKey(magId);
+        return moduleManager;
+    }
 }

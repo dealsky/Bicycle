@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.*;
 
@@ -42,6 +43,15 @@ public class AdministerController {
     public String manageBicycle(HttpSession session) {
         if(session.getAttribute("manager") != null) {
             return "managebicycle";
+        } else {
+            return "redirect:Administer";
+        }
+    }
+
+    @RequestMapping("/ManageSite")
+    public String manageSite(HttpSession session) {
+        if(session.getAttribute("manager") != null) {
+            return "managesite";
         } else {
             return "redirect:Administer";
         }
@@ -184,13 +194,28 @@ public class AdministerController {
         ModuleBicycle moduleBicycle = new ModuleBicycle();
         moduleBicycle.setBicrentprice(Float.valueOf((String) mapAll.get("bicycle.bicrentprice")));
         moduleBicycle.setBicid(Long.valueOf((Integer)mapBicycle.get("bicid")));
-
-        System.out.println(moduleBicycle.getBicid());
-        System.out.println(moduleBicycle.getBicrentprice());
-
         bicycleService.updateBicycle(moduleBicycle);
-
         map.put("errorLog", "right");
+        return map;
+    }
+
+    @RequestMapping("/TableSite.do")
+    public @ResponseBody List<Map> tableSite() {
+        List<ModuleSite> list = siteService.getAllSite();
+        List<Map> returnList = new ArrayList<>();
+        for(int i = 0; i<list.size(); i++) {
+            Map<String, Object> map = new HashMap<>();
+            map.put("site", list.get(i));
+            returnList.add(map);
+        }
+        return returnList;
+    }
+
+    @RequestMapping("/GetManager.do")
+    public @ResponseBody Map<String, Object> getManager(@RequestParam long magId) {
+        Map<String, Object> map = new HashMap<>();
+        ModuleManager moduleManager = managerService.getManagerById(magId);
+        map.put("manager", moduleManager);
         return map;
     }
 }

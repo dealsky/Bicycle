@@ -44,7 +44,7 @@
             <ul class="nav nav-sidebar">
                 <li class="over-view active"><a href="/Bicycle/Administer">概述<span class="sr-only">(current)</span></a></li>
                 <li><a href="/Bicycle/ManageBicycle" class="manage-bicycle">自行车管理</a></li>
-                <li><a href="javascript:void(0)" class="manage-site">站点管理</a></li>
+                <li><a href="/Bicycle/ManageSite" class="manage-site">站点管理</a></li>
             </ul>
             <ul class="nav nav-sidebar">
                 <li><a href="javascript:void(0)">信息编辑</a></li>

@@ -109,8 +109,8 @@ $(document).ready(function () {
             // console.log(field);
             // console.log(oldValue);
             // console.log($el);
-            row.bicycle.bicrentprice = row[field];
-            console.log(row.bicycle)
+            // row.bicycle.bicrentprice = row[field];
+            // console.log(row.bicycle);
             $.ajax({
                 type: "POST",
                 url: "/Bicycle/EditBicycle.do",
