@@ -244,4 +244,24 @@ public class AdministerController {
         siteService.updateSite(moduleSite);
         return map;
     }
+
+    @RequestMapping("/DeleteSiteTable.do")
+    public @ResponseBody Map<String, Object> deleteSiteTable(@RequestBody ModuleSite[] moduleSite) {
+        Map<String, Object> map = new HashMap<>();
+        boolean flag = true;
+        for(ModuleSite site : moduleSite) {
+            if(site.getSiteamount() != 0) {
+                flag = false;
+            } else {
+                siteService.deleteSiteById(site.getSiteid());
+            }
+        }
+        if(flag) {
+            map.put("errorLog", "right");
+        } else {
+            map.put("errorLog", "error");
+        }
+
+        return map;
+    }
 }

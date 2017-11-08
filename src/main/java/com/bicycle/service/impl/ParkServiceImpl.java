@@ -58,4 +58,8 @@ public class ParkServiceImpl implements ParkService {
     public void insertPark(ModulePark modulePark) {
         moduleParkMapper.insert(modulePark);
     }
+
+    public void deleteParkBySiteId(long siteId) {
+        moduleParkMapper.deleteByPrimaryKey(siteId);
+    }
 }

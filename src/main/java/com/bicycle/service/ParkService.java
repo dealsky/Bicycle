@@ -13,4 +13,5 @@ public interface ParkService {
     void deleteParkByBicId(long bicId);
     List<ModulePark> getParkByBicId(long bicId);
     void insertPark(ModulePark modulePark);
+    void deleteParkBySiteId(long siteId);
 }

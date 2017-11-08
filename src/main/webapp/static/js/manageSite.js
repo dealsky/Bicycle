@@ -4,6 +4,7 @@ $(document).ready(function () {
     $("#site-area").bind("change", judgeArea);
     $(".close").bind("click", clearForm);
     $("#addTableConfirm").bind("click", addTable);
+    $("#delete-table").bind("click", deleteTable);
 
     $('#SiteTable').bootstrapTable({
         columns:[
@@ -242,4 +243,41 @@ function addTable() {
             console.log(xhr.responseText);
         }
     });
+}
+
+function deleteTable() {
+    var arr = ($('#SiteTable').bootstrapTable('getSelections'));
+    var array = new Array();
+    if(arr.length !== 0) {
+        for(var i = 0; i<arr.length; i++) {
+            array.push(arr[i].site);
+        }
+        $.ajax({
+            url: "/Bicycle/DeleteSiteTable.do",
+            type: "POST",
+            contentType:"application/json",
+            dataType: "json",
+            data: JSON.stringify(array),
+            success: function (data) {
+                var opt = {
+                    url: "/Bicycle/TableSite.do",
+                    silent: true,
+                    query:{
+                        type:1,
+                        level:2
+                    }
+                };
+                $('#SiteTable').bootstrapTable('refresh', opt);
+                if(data.errorLog === "right") {
+                    alert("删除成功！");
+                } else {
+                    alert("无法删除停车数大于0的站点！");
+                }
+
+            },
+            error: function (xhr) {
+                console.log(xhr.responseText)
+            }
+        });
+    }
 }

@@ -98,4 +98,8 @@ public class SiteServiceImpl implements SiteService {
     public void insertSite(ModuleSite moduleSite) {
         moduleSiteMapper.insert(moduleSite);
     }
+
+    public void deleteSiteById(long siteId) {
+        moduleSiteMapper.deleteByPrimaryKey(siteId);
+    }
 }
