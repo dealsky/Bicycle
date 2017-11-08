@@ -94,4 +94,8 @@ public class SiteServiceImpl implements SiteService {
         }
         return map;
     }
+
+    public void insertSite(ModuleSite moduleSite) {
+        moduleSiteMapper.insert(moduleSite);
+    }
 }

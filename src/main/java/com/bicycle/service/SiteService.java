@@ -17,4 +17,5 @@ public interface SiteService {
     void updateSite(ModuleSite moduleSite);
     ModuleSite getSiteById(long siteId);
     Map<String, Integer> getSiteCount();
+    void insertSite(ModuleSite moduleSite);
 }

@@ -215,7 +215,33 @@ public class AdministerController {
     public @ResponseBody Map<String, Object> getManager(@RequestParam long magId) {
         Map<String, Object> map = new HashMap<>();
         ModuleManager moduleManager = managerService.getManagerById(magId);
-        map.put("manager", moduleManager);
+        if(moduleManager != null) {
+            map.put("manager", moduleManager);
+            map.put("errorLog", "right");
+        } else {
+            map.put("errorLog", "error");
+        }
+        return map;
+    }
+
+    @RequestMapping("/AddSite.do")
+    public @ResponseBody Map<String, Object> addSite(@RequestParam long magId, @RequestParam String siteArea) {
+        Map<String, Object> map = new HashMap<>();
+        ModuleSite moduleSite = new ModuleSite();
+        moduleSite.setMagid(magId);
+        moduleSite.setSitearea(siteArea);
+        moduleSite.setSiteamount(0);
+        siteService.insertSite(moduleSite);
+        moduleSite.setSitenumber(moduleSite.getSiteid() + 740000);
+        siteService.updateSite(moduleSite);
+        map.put("errorLog", "right");
+        return map;
+    }
+
+    @RequestMapping("/EditSite.do")
+    public @ResponseBody Map<String, Object> editSite(@RequestBody ModuleSite moduleSite) {
+        Map<String, Object> map = new HashMap<>();
+        siteService.updateSite(moduleSite);
         return map;
     }
 }

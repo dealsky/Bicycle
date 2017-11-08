@@ -99,7 +99,7 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.bicycle.dao.entity.ModuleSite" >
+  <insert id="insert" parameterType="com.bicycle.dao.entity.ModuleSite" useGeneratedKeys="true" keyProperty="siteid">
     insert into module_site (SiteId, MagId, SiteNumber, 
       SiteArea, SiteAmount)
     values (#{siteid,jdbcType=BIGINT}, #{magid,jdbcType=BIGINT}, #{sitenumber,jdbcType=BIGINT}, 
