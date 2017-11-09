@@ -19,7 +19,18 @@ $(document).ready(function () {
             {
                 field: 'bicycle.bictype',
                 title: '类型',
-                sortable: true
+                sortable: true,
+                editable: {
+                    type: "text",
+                    title: "类型",
+                    width: "10%",
+                    align: "right",
+                    validate: function (v) {
+                        if(!v) {
+                            return "不能为空";
+                        }
+                    }
+                }
             },
             {
                 field: 'bicycle.bicrentprice',
@@ -106,17 +117,17 @@ $(document).ready(function () {
         paginationNextText: "后一页",
         height: 450,
         onEditableSave: function (field, row, oldValue, $el) {
-            // console.log(field);
-            // console.log(oldValue);
-            // console.log($el);
-            // row.bicycle.bicrentprice = row[field];
-            // console.log(row.bicycle);
+            if(field === "bicycle.bicrentprice") {
+                row.bicycle.bicrentprice = row[field];
+            } else if(field === "bicycle.bictype") {
+                row.bicycle.bictype = row[field];
+            }
             $.ajax({
                 type: "POST",
                 url: "/Bicycle/EditBicycle.do",
                 dataType: "json",
                 contentType: 'application/json; charset=utf-8',
-                data: JSON.stringify(row),
+                data: JSON.stringify(row.bicycle),
                 success: function (data) {
                     var opt = {
                         url: "/Bicycle/TableBicycle.do",

@@ -188,12 +188,8 @@ public class AdministerController {
     }
 
     @RequestMapping("/EditBicycle.do")
-    public @ResponseBody Map<String, Object> editBicycle(@RequestBody Map<String, Object> mapAll) {
+    public @ResponseBody Map<String, Object> editBicycle(@RequestBody ModuleBicycle moduleBicycle) {
         Map<String, Object> map = new HashMap<>();
-        Map<String, Object> mapBicycle = (Map<String, Object>) mapAll.get("bicycle");
-        ModuleBicycle moduleBicycle = new ModuleBicycle();
-        moduleBicycle.setBicrentprice(Float.valueOf((String) mapAll.get("bicycle.bicrentprice")));
-        moduleBicycle.setBicid(Long.valueOf((Integer)mapBicycle.get("bicid")));
         bicycleService.updateBicycle(moduleBicycle);
         map.put("errorLog", "right");
         return map;
