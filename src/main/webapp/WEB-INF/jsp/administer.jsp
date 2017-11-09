@@ -20,6 +20,10 @@
             $("#managerLoginHref").click(function () {
                 login($("#managerAcc").val(), $("#managerPass").val());
             });
+            $(".nav-sidebar li").each(function () {
+                $(this).removeClass("active");
+            });
+            $(".over-view").addClass("active");
         });
         function login(managerAcc, managerPass) {
             if(managerAcc!=="" && managerPass!=="") {
