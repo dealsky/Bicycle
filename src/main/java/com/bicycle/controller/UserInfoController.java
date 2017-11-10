@@ -56,6 +56,7 @@ public class UserInfoController {
         ModuleUser moduleUser = (ModuleUser) session.getAttribute("user");
         ModuleUser moduleUser1 = new ModuleUser();
 
+
         String userName = request.getParameter("userName");
         String userEmail = request.getParameter("userEmail");
         String userTel = request.getParameter("userTel");
