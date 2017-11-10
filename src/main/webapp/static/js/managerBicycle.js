@@ -102,7 +102,7 @@ $(document).ready(function () {
                 }
             }
         ],
-        url: "/Bicycle/TableBicycle.do",
+        url: "/Bicycle/Administer/TableBicycle.do",
         method: "POST",
         pagination: true,
         sidePagination: 'client',
@@ -124,13 +124,13 @@ $(document).ready(function () {
             }
             $.ajax({
                 type: "POST",
-                url: "/Bicycle/EditBicycle.do",
+                url: "/Bicycle/Administer/EditBicycle.do",
                 dataType: "json",
                 contentType: 'application/json; charset=utf-8',
                 data: JSON.stringify(row.bicycle),
                 success: function (data) {
                     var opt = {
-                        url: "/Bicycle/TableBicycle.do",
+                        url: "/Bicycle/Administer/TableBicycle.do",
                         silent: true,
                         query:{
                             type:1,
@@ -198,7 +198,7 @@ function siteJudge() {
     var text = $("#bic-site").val();
     if(!isNaN(text)) {
         $.ajax({
-            url: "/Bicycle/JudgeSite.do",
+            url: "/Bicycle/Administer/JudgeSite.do",
             type: "POST",
             dataType: "json",
             data: {siteNumber: text},
@@ -279,7 +279,7 @@ function addTable() {
     var siteNumber = $("#bic-site").val();
     var bicBuyTime = $("#bic-time").val();
     $.ajax({
-        url: "/Bicycle/AddTable.do",
+        url: "/Bicycle/Administer/AddTable.do",
         type: "POST",
         dataType: "json",
         data: {
@@ -291,7 +291,7 @@ function addTable() {
         success: function (data) {
             if(data.errorLog === "right") {
                 var opt = {
-                    url: "/Bicycle/TableBicycle.do",
+                    url: "/Bicycle/Administer/TableBicycle.do",
                     silent: true,
                     query:{
                         type:1,
@@ -318,14 +318,14 @@ function deleteTable() {
             array.push(arr[i].bicycle);
         }
         $.ajax({
-            url: "/Bicycle/DeleteTable.do",
+            url: "/Bicycle/Administer/DeleteTable.do",
             type: "POST",
             contentType:"application/json",
             dataType: "json",
             data: JSON.stringify(array),
             success: function (data) {
                 var opt = {
-                    url: "/Bicycle/TableBicycle.do",
+                    url: "/Bicycle/Administer/TableBicycle.do",
                     silent: true,
                     query:{
                         type:1,

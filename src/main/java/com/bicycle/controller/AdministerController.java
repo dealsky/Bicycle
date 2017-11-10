@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 import java.util.*;
 
 @Controller
+@RequestMapping("/Administer")
 public class AdministerController {
 
     @Resource
@@ -34,7 +35,7 @@ public class AdministerController {
     @Resource
     private RentedService rentedService;
 
-    @RequestMapping("/Administer")
+    @RequestMapping("/")
     public String administer() {
         return "administer";
     }
@@ -44,7 +45,7 @@ public class AdministerController {
         if(session.getAttribute("manager") != null) {
             return "managebicycle";
         } else {
-            return "redirect:Administer";
+            return "redirect:/Administer/";
         }
     }
 
@@ -53,11 +54,11 @@ public class AdministerController {
         if(session.getAttribute("manager") != null) {
             return "managesite";
         } else {
-            return "redirect:Administer";
+            return "redirect:/Administer/";
         }
     }
 
-    @RequestMapping("/ManagerLogin.do")
+    @RequestMapping("/ManagerLogin.action")
     public @ResponseBody Map<String, Object> managerLogin(@RequestParam String managerAcc, @RequestParam String managerPass, HttpSession session) {
         Map<String, Object> map = new HashMap<>();
         List<ModuleManager> list = managerService.getManagerByAcc(managerAcc);
@@ -82,7 +83,7 @@ public class AdministerController {
     @RequestMapping("/ManagerLogout.do")
     public String managerLogout(HttpSession httpSession) {
         httpSession.removeAttribute("manager");
-        return "redirect:Administer";
+        return "redirect:/Administer/";
     }
 
     @RequestMapping("/CountSite.do")

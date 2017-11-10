@@ -1,16 +1,23 @@
 package com.bicycle.filter;
 
+import com.bicycle.dao.entity.ModuleManager;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 public class ManagerLoginHandlerIntercepter implements HandlerInterceptor{
     @Override
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o) throws Exception {
-        String requestURL = httpServletRequest.getRequestURI();
-        return false;
+        ModuleManager moduleManager = (ModuleManager) httpServletRequest.getSession().getAttribute("manager");
+        if(moduleManager != null) {
+            return true;
+        } else {
+            httpServletResponse.sendRedirect("/Bicycle/Administer/");
+            return false;
+        }
     }
 
     @Override

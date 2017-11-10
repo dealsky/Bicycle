@@ -23,7 +23,7 @@ $(document).ready(function () {
                 sortable: true,
                 formatter: function (value) {
                     $.ajax({
-                        url: "/Bicycle/GetManager.do",
+                        url: "/Bicycle/Administer/GetManager.do",
                         type: "POST",
                         dataType: "json",
                         async: false,
@@ -56,7 +56,7 @@ $(document).ready(function () {
                         else {
                             var flag = "";
                             $.ajax({
-                                url: "/Bicycle/GetManager.do",
+                                url: "/Bicycle/Administer/GetManager.do",
                                 type: "POST",
                                 dataType: "json",
                                 async: false,
@@ -88,7 +88,7 @@ $(document).ready(function () {
                 sortable: true
             }
         ],
-        url: "/Bicycle/TableSite.do",
+        url: "/Bicycle/Administer/TableSite.do",
         method: "POST",
         pagination: true,
         sidePagination: 'client',
@@ -108,13 +108,13 @@ $(document).ready(function () {
             }
             $.ajax({
                 type: "POST",
-                url: "/Bicycle/EditSite.do",
+                url: "/Bicycle/Administer/EditSite.do",
                 dataType: "json",
                 contentType: 'application/json; charset=utf-8',
                 data: JSON.stringify(row.site),
                 success: function (data) {
                     var opt = {
-                        url: "/Bicycle/TableSite.do",
+                        url: "/Bicycle/Administer/TableSite.do",
                         silent: true,
                         query:{
                             type:1,
@@ -154,7 +154,7 @@ function judgeMagId() {
     //console.log(text);
     if(!isNaN(text)) {
         $.ajax({
-            url: "/Bicycle/GetManager.do",
+            url: "/Bicycle/Administer/GetManager.do",
             type: "POST",
             dataType: "json",
             data: {magId: text},
@@ -218,7 +218,7 @@ function addTable() {
     var magId = $("#mag-id").val();
     var siteArea = $("#site-area").val();
     $.ajax({
-        url: "/Bicycle/AddSite.do",
+        url: "/Bicycle/Administer/AddSite.do",
         type: "POST",
         dataType: "json",
         data: {
@@ -227,7 +227,7 @@ function addTable() {
         },
         success: function (data) {
             var opt = {
-                url: "/Bicycle/TableSite.do",
+                url: "/Bicycle/Administer/TableSite.do",
                 silent: true,
                 query:{
                     type:1,
@@ -253,14 +253,14 @@ function deleteTable() {
             array.push(arr[i].site);
         }
         $.ajax({
-            url: "/Bicycle/DeleteSiteTable.do",
+            url: "/Bicycle/Administer/DeleteSiteTable.do",
             type: "POST",
             contentType:"application/json",
             dataType: "json",
             data: JSON.stringify(array),
             success: function (data) {
                 var opt = {
-                    url: "/Bicycle/TableSite.do",
+                    url: "/Bicycle/Administer/TableSite.do",
                     silent: true,
                     query:{
                         type:1,
