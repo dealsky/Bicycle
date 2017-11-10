@@ -8,7 +8,7 @@ function getBicycleTypeCount() {
     var colorAll = ['#16a085', '#27ae60', '#2c3e50', '#f39c12', '#e74c3c', '#9b59b6', '#FB6964', '#342224', '#472E32', '#BDBB99', '#77B1A9', '#73A857'];
 
     $.ajax({
-        url: "/Bicycle/BicycleCount.do",
+        url: "/Bicycle/User/BicycleCount.do",
         type: "POST",
         dataType: "json",
         success: function (map) {
@@ -46,7 +46,7 @@ function getBorrowCount() {
     var colorAll = ['#16a085', '#27ae60', '#2c3e50', '#f39c12', '#e74c3c', '#9b59b6', '#FB6964', '#342224', '#472E32', '#BDBB99', '#77B1A9', '#73A857'];
 
     $.ajax({
-        url: "/Bicycle/BicycleBorrowCount.do",
+        url: "/Bicycle/User/BicycleBorrowCount.do",
         type: "POST",
         dataType: "json",
         success: function (map) {

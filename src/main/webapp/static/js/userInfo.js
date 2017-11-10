@@ -28,7 +28,7 @@ $(document).ready(function () {
         var reg = /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
         if(reg.test(userEmail)) {
             $.ajax({
-                url: "/Bicycle//UpEmail.do",
+                url: "/Bicycle/User/UpEmail.do",
                 type: "POST",
                 dataType: "json",
                 data: {

@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
+@RequestMapping("/User")
 public class BorrowBicycleController {
 
     @Resource

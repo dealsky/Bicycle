@@ -29,7 +29,7 @@
             <div class="row user-info-fix">
                 <h3>用户信息</h3>
                 <div class="user-info-form">
-                    <form action="/Bicycle/upUserInfo.do" method="post">
+                    <form action="/Bicycle/User/upUserInfo.do" method="post">
                         <div class="row user-info-form-fix">
                             <div class="form-group has-feedback" id="groupName">
                                 <div class="col-md-2" style="float: left; line-height: 30px; margin-right: 20px;">
@@ -108,7 +108,7 @@
                         </div>
                         <div class="buttons">
                             <button type="button" style="margin-right: 20px;" class="btn btn-danger" id="changeUserInfo">修改</button>
-                            <button type="submit" class="btn btn-success" id="saveChange" disabled="true">保存</button>
+                            <button type="submit" class="btn btn-success" id="saveChange" disabled="disabled">保存</button>
                         </div>
                     </form>
                 </div>

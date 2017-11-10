@@ -16,7 +16,7 @@ $(document).ready(function () {
         $(".site-table tbody").html("");
         $(".page-site").html("");
         $.ajax({
-            url: "/Bicycle/DisplaySite.do",
+            url: "/Bicycle/User/DisplaySite.do",
             type: "POST",
             dataType: "json",
             data: {siteArea: siteArea, pageNum: 1},
@@ -63,7 +63,7 @@ $(document).ready(function () {
             return;
         }
         $.ajax({
-            url: "/Bicycle/SearchSite.do",
+            url: "/Bicycle/User/SearchSite.do",
             type: "POST",
             dataType: "json",
             data: {siteNumber: siteNumber},
@@ -104,7 +104,7 @@ $(document).ready(function () {
             return;
         }
         $.ajax({
-            url: "/Bicycle/SearchBicycle.do",
+            url: "/Bicycle/User/SearchBicycle.do",
             type: "POST",
             dataType: "json",
             data: {bicycleNumber: bicycleNumber},
@@ -136,7 +136,7 @@ function getArea() {
     var siteArea = $("#checkSite:first").nextAll().find(":checked").text();
     $("#checkSite").html("<option disabled=\"disabled\" selected=\"selected\">选择一个区域</option>");
     $.ajax({
-        url: "/Bicycle/GetArea.do",
+        url: "/Bicycle/User/GetArea.do",
         type: "POST",
         success: function (data) {
             var len = data.sites.length;
@@ -157,7 +157,7 @@ function pageTo(pageNum, siteArea) {
     //$(".site-table tbody").html("");
     //$(".page-site").html("");
     $.ajax({
-        url: "/Bicycle/DisplaySite.do",
+        url: "/Bicycle/User/DisplaySite.do",
         type: "POST",
         dataType: "json",
         data: {siteArea: siteArea, pageNum: pageNum},
@@ -193,7 +193,7 @@ function pageTo(pageNum, siteArea) {
 function showBicycle(siteId, pageNum, pageSize) {
     $("#displayBicycleError").html("");
     $.ajax({
-        url: "/Bicycle/DisplayBicycle.do",
+        url: "/Bicycle/User/DisplayBicycle.do",
         type: "POST",
         dataType: "json",
         data: {
@@ -264,7 +264,7 @@ function changePageSize(siteId) {
 
 function opBorrowModal(bicycleNumber) {
     $.ajax({
-        url: "/Bicycle/JudgmentBorrow.do",
+        url: "/Bicycle/User/JudgmentBorrow.do",
         type: "POST",
         dataType: "json",
         data: {bicycleNumber: bicycleNumber},
@@ -277,7 +277,7 @@ function opBorrowModal(bicycleNumber) {
                     "                </a>\n" +
                     "                <strong>成功！</strong>租借成功。\n" +
                     "            </div>");
-                //window.location.href = "/Bicycle/Borrow";
+                //window.location.href = "/Bicycle/User/Borrow";
                 displayRented();
                 $("#returnBicycle .error-message").html("");
             } else if(meg === "money") {
@@ -302,7 +302,7 @@ function opBorrowModal(bicycleNumber) {
                     "                <strong>错误！</strong>同一时间只能租用一辆自行车。\n" +
                     "            </div>");
             } else {
-                window.location.href = "/Bicycle/Home";
+                window.location.href = "/Bicycle/User/Home";
             }
         },
         error: function (xhr) {
@@ -313,7 +313,7 @@ function opBorrowModal(bicycleNumber) {
 
 function displayRented() {
     $.ajax({
-        url: "/Bicycle/DisplayRented.do",
+        url: "/Bicycle/User/DisplayRented.do",
         type: "POST",
         dataType: "json",
         success: function (data) {
@@ -339,7 +339,7 @@ function displayRented() {
             } else if(data.errorLog === "noRented") {
                 $("#returnBicycle .error-message").html("");
             } else {
-                window.location.href = "/Bicycle/Home";
+                window.location.href = "/Bicycle/User/Home";
             }
         },
         error: function (xhr) {
@@ -361,7 +361,7 @@ function returnBicycle(bicid) {
         return;
     } else {
         $.ajax({
-            url: "/Bicycle/ReturnBicycle.do",
+            url: "/Bicycle/User/ReturnBicycle.do",
             type: "POST",
             dataType: "json",
             data: {

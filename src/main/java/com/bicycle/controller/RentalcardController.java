@@ -17,6 +17,7 @@ import java.util.Map;
 import java.util.Random;
 
 @Controller
+@RequestMapping("/User")
 public class RentalcardController {
 
     @Resource

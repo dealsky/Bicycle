@@ -13,6 +13,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Controller
+@RequestMapping("/User")
 public class SituationController {
 
     @Resource

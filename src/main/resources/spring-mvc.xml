@@ -25,6 +25,11 @@
             <mvc:mapping path="/Administer/*.do"/>
             <bean class="com.bicycle.filter.ManagerLoginHandlerIntercepter"/>
         </mvc:interceptor>
+        <mvc:interceptor>
+            <mvc:mapping path="/User/*.do"/>
+            <mvc:mapping path="/User/*.pan"/>
+            <bean class="com.bicycle.filter.UserLoginHandlerIntercepter"/>
+        </mvc:interceptor>
     </mvc:interceptors>
     
     <!-- 配置jsp 显示ViewResolver -->

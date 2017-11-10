@@ -26,8 +26,8 @@
             <script>
                 function rentalClose(recId) {
                     console.log(recId);
-                    $.post("/Bicycle/removeRentCard.do", {recId: recId}, function () {
-                        window.location.href = "/Bicycle/RentalCard";
+                    $.post("/Bicycle/User/removeRentCard.do", {recId: recId}, function () {
+                        window.location.href = "/Bicycle/User/RentalCard";
                     });
                 }
                 
@@ -57,11 +57,11 @@
 
                 function addRentalCard() {
                     $.ajax({
-                        url: "/Bicycle/addRentCard.do",
+                        url: "/Bicycle/User/addRentCard.do",
                         type: "POST",
                         success: function (data) {
                             if(data.message === "right") {
-                                window.location.href = "RentalCard"
+                                window.location.href = "/Bicycle/User/RentalCard"
                             } else if(data.message === "error") {
                                 $(".can-not-add").html("<div class=\"alert alert-warning\">\n" +
                                     "            <a href=\"#\" class=\"close\" data-dismiss=\"alert\">\n" +
@@ -70,7 +70,7 @@
                                     "            <strong>警告！</strong>你只能拥有一张租借卡。\n" +
                                     "        </div>");
                             } else {
-                                window.location.href = "/Bicycle/Home";
+                                window.location.href = "/Bicycle/User/Home";
                             }
                         },
                         error: function (xhr) {
@@ -121,7 +121,7 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title" id="myModalLabel">充值</h4>
                 </div>
-                <form action="/Bicycle/chargeMoney.do" method="post">
+                <form action="/Bicycle/User/chargeMoney.do" method="post">
                     <div class="modal-body">
                         <div id="rentalHidden">
                             <input type="hidden" name="recId"/>
