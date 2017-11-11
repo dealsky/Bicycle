@@ -1,5 +1,6 @@
 package com.bicycle.filter;
 
+import com.bicycle.dao.entity.ModuleManager;
 import com.bicycle.dao.entity.ModuleUser;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
@@ -11,7 +12,8 @@ public class UserLoginHandlerIntercepter implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o) throws Exception {
         ModuleUser moduleUser = (ModuleUser) httpServletRequest.getSession().getAttribute("user");
-        if(moduleUser != null) {
+        ModuleManager moduleManager = (ModuleManager) httpServletRequest.getSession().getAttribute("manager");
+        if(moduleUser != null || moduleManager != null) {
             return true;
         } else {
             httpServletResponse.sendRedirect("/Bicycle/User/Home");
