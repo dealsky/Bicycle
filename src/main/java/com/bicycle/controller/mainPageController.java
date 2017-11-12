@@ -12,7 +12,11 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -119,6 +123,28 @@ public class mainPageController {
         } else {
             map.put("message", "error");
         }
+        return map;
+    }
+
+    @RequestMapping("/GetWeather.action")
+    public @ResponseBody Map<String, Object> getWeather() throws IOException {
+        Map<String, Object> map = new HashMap<>();
+        URL u=new URL("http://route.showapi.com/9-5?showapi_appid=46304&from=5&lng=121.56&lat=29.86&needMoreDay=&needIndex=&needHourData=&need3HourForcast=&needAlarm=&showapi_sign=b121570716a84dabbb0143ad58f76c18");
+        InputStream in=u.openStream();
+        ByteArrayOutputStream out=new ByteArrayOutputStream();
+        try {
+            byte buf[]=new byte[1024];
+            int read = 0;
+            while ((read = in.read(buf)) > 0) {
+                out.write(buf, 0, read);
+            }
+        }  finally {
+            if (in != null) {
+                in.close();
+            }
+        }
+        byte b[]=out.toByteArray();
+        map.put("weather", new String(b,"utf-8"));
         return map;
     }
 }

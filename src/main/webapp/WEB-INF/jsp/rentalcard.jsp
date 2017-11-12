@@ -148,5 +148,6 @@
             </div>
         </div>
     </div>
+            <jsp:include page="common/footer.jsp"/>
 </body>
 </html>

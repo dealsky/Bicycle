@@ -12,6 +12,8 @@
         <title>bicycle</title>
     <link href="${pageContext.request.contextPath}/static/css/mainPage.css" rel="stylesheet" type="text/css"/>
     <jsp:include page="common/head.jsp"/>
+    <link href="${pageContext.request.contextPath}/static/zoomify/zoomify.min.css" rel="stylesheet">
+    <script src="${pageContext.request.contextPath}/static/zoomify/zoomify.min.js"></script>
     <script src="${pageContext.request.contextPath}/static/js/mainPageJs.js"></script>
 </head>
 <body>
@@ -25,28 +27,60 @@
 
         <!-- Jumbotron -->
         <div class="jumbotron">
-            <h1>Welcome!</h1>
+            <h1>欢迎!</h1>
             <p class="lead">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet.</p>
             <p><a class="btn btn-lg btn-success" href="#" role="button">Get started today</a></p>
+            <div class="weather-today">
+                <%--<img src="http://app1.showapi.com/weather/icon/day/01.png"/>--%>
+            </div>
         </div>
 
         <!-- Example row of columns -->
         <div class="row">
             <div class="col-lg-4">
-                <h2>column1</h2>
-                <p><a class="btn btn-primary" href="#" role="button">View details &raquo;</a></p>
+                <h2>最新公告</h2>
+                <p>
+                    （1）点击页面右上角注册账号，用注册好的账号登录系统。（2）借车前请先办理租借卡，办理完成后可以进行充值。
+                    （3）在借车/还车界面，可以根据站点查找某一个站点的自行车，也可以直接通过编号来查询自行车。（4）在找到了
+                    想要借走的自行车后，点击借车按钮可以借到该车。但是要注意的是，如果租借卡的余额较少时，是无法完成借车操作的，
+                    所以，在借车前请务确保租借卡中有足够的余额。（5）还车同样是在借车/还车界面，在还车站点中输入归还自行车的站点，
+                    然后点击还车按钮，即可完成还车操作。
+                </p>
+                <p><a class="btn btn-default" href="#" role="button">查看详细信息 &raquo;</a></p>
             </div>
             <div class="col-lg-4">
-                <h2>column2</h2>
-                <p><a class="btn btn-primary" href="#" role="button">View details &raquo;</a></p>
+                <h2>租/还车流程</h2>
+                <img class="zoomify" src="${pageContext.request.contextPath}/static/image/howToUse.jpg" width="360px">
+                <script type="text/javascript">
+                    $('.zoomify').zoomify();
+                </script>
             </div>
             <div class="col-lg-4">
-                <h2>column3</h2>
-                <p><a class="btn btn-primary" href="#" role="button">View details &raquo;</a></p>
+                <h2>今日天气</h2>
+                <%--<div class="weather-info">--%>
+                    <%--所在城市<p></p>--%>
+
+                <%--</div>--%>
+                <div id="weather-today">
+                    <div class="weather-info left col-md-5 col-md-offset-1">
+                        <h1>{{temperature}}&#186;</h1>
+                        <p>{{weather}} {{day_air_temperature}}&#186;/{{night_air_temperature}}&#186;C</p>
+                        <p>空气质量指数: {{aqi}}</p>
+                        <p>空气湿度: {{sd}}</p>
+                        <p>风向: {{wind_direction}}</p>
+                        <p>风力: {{wind_power}}</p>
+                    </div>
+                    <div class="weather-img right col-md-5">
+                        <img src="http://app1.showapi.com/weather/icon/day/01.png"/>
+                        <h2>{{city}}</h2>
+                        <h3>{{cityE}}</h3>
+                    </div>
+                </div>
+
+
             </div>
         </div>
 
-        <jsp:include page="common/footer.jsp"/>
     </div>
 
 
@@ -148,5 +182,6 @@
         </div>
     </div>
     <jsp:include page="common/changepass.jsp"/>
+    <jsp:include page="common/footer.jsp"/>
 </body>
 </html>

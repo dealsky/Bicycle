@@ -1,5 +1,43 @@
 $(document).ready(function () {
 
+    var weatherData;
+
+    $.ajax({
+        url: "/Bicycle/User/GetWeather.action",
+        type: "POST",
+        datatype: "json",
+        async: false,
+        success: function (data) {
+            var obj = eval('(' + data.weather + ')');
+            var weather = obj.showapi_res_body;
+            var cityInfo = weather.cityInfo;
+            var today = weather.f1;
+            var now = weather.now;
+            weatherData = {
+                temperature: now.temperature,
+                weather: now.weather,
+                day_air_temperature: today.day_air_temperature,
+                night_air_temperature: today.night_air_temperature,
+                aqi: now.aqi,
+                sd: now.sd,
+                wind_direction: now.wind_direction,
+                wind_power: now.wind_power,
+                city: cityInfo.c3,
+                cityE: cityInfo.c2
+            };
+            console.log(weatherData);
+
+        },
+        error: function (xhr) {
+            console.log(xhr.responseText);
+        }
+    });
+
+    new Vue({
+        el: '#weather-today',
+        data: weatherData
+    });
+
     $("#modalLogin").modal({
         backdrop: false,
         show: false
