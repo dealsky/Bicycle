@@ -9,7 +9,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-        <title>bicycle</title>
+    <title>bicycle</title>
     <link href="${pageContext.request.contextPath}/static/css/mainPage.css" rel="stylesheet" type="text/css"/>
     <jsp:include page="common/head.jsp"/>
     <link href="${pageContext.request.contextPath}/static/zoomify/zoomify.min.css" rel="stylesheet">
