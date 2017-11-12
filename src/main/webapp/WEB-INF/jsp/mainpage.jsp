@@ -19,7 +19,6 @@
 <body>
 
     <jsp:include page="common/nav.jsp"/>
-
     <div class="container">
         <div>
             <div id="foo"></div>
