@@ -25,8 +25,6 @@ $(document).ready(function () {
                 city: cityInfo.c3,
                 cityE: cityInfo.c2
             };
-            console.log(weatherData);
-
         },
         error: function (xhr) {
             console.log(xhr.responseText);

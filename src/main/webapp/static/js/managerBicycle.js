@@ -158,7 +158,7 @@ $(document).ready(function () {
 
 });
 
-var flag = [];
+var flag = [false, false, false, false];
 
 function typeJudge() {
     var text = $("#bic-type").val();
@@ -196,12 +196,19 @@ function priceJudge() {
 
 function siteJudge() {
     var text = $("#bic-site").val();
-    if(!isNaN(text)) {
+    if(text.length === 0) {
+        $("#bicSite").addClass("has-error");
+        $("#bicSite").removeClass("has-success");
+        $("#bicSite .feed-back").html("<span class=\"glyphicon glyphicon-remove form-control-feedback glyp-right\"></span>\n" +
+            "                                <span class=\"error-message\">输入不能为空</span>");
+        flag[2] = false;
+    } else if(!isNaN(text)) {
         $.ajax({
             url: "/Bicycle/Administer/JudgeSite.do",
             type: "POST",
             dataType: "json",
             data: {siteNumber: text},
+            async: false,
             success: function (data) {
                 if (data.errorLog === "right") {
                     $("#bicSite").addClass("has-success");
@@ -238,6 +245,7 @@ function clearForm() {
         $(this).find("input").val("");
         $(this).find(".feed-back").html("");
         $("#addTableConfirm").attr("disabled", true);
+        flag = [false, false, false, false];
     });
 }
 
@@ -261,7 +269,7 @@ function timeJudge() {
 function ableButton() {
     var f = true;
     for(var i = 0; i<flag.length; i++) {
-        if(flag[i] === false) {
+        if(!flag[i]) {
             f = false;
             break;
         }
@@ -308,6 +316,7 @@ function addTable() {
             console.log(xhr.responseText);
         }
     });
+    flag = [false, false, false, false];
 }
 
 function deleteTable() {

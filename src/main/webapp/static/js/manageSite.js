@@ -133,9 +133,10 @@ $(document).ready(function () {
 
 });
 
-var flag = [];
+var flag = [false, false];
 function ableButton() {
     var f = true;
+    console.log(flag);
     for(var i = 0; i<flag.length; i++) {
         if(flag[i] === false) {
             f = false;
@@ -152,12 +153,19 @@ function ableButton() {
 function judgeMagId() {
     var text = $("#mag-id").val();
     //console.log(text);
-    if(!isNaN(text)) {
+    if(text.length === 0) {
+        $("#magId").addClass("has-error");
+        $("#magId").removeClass("has-success");
+        $("#magId .feed-back").html("<span class=\"glyphicon glyphicon-remove form-control-feedback glyp-right\"></span>\n" +
+            "                                <span class=\"error-message\">输入不能为空</span>");
+        flag[0] = false;
+    } else if(!isNaN(text)) {
         $.ajax({
             url: "/Bicycle/Administer/GetManager.do",
             type: "POST",
             dataType: "json",
             data: {magId: text},
+            async: false,
             success: function (data) {
                 if(data.errorLog === "right") {
                     $("#magId").addClass("has-success");
