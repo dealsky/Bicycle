@@ -136,7 +136,6 @@ $(document).ready(function () {
 var flag = [false, false];
 function ableButton() {
     var f = true;
-    console.log(flag);
     for(var i = 0; i<flag.length; i++) {
         if(flag[i] === false) {
             f = false;
@@ -219,6 +218,7 @@ function clearForm() {
         $(this).find("input").val("");
         $(this).find(".feed-back").html("");
         $("#addTableConfirm").attr("disabled", true);
+        flag = [false, false];
     });
 }
 
@@ -251,6 +251,7 @@ function addTable() {
             console.log(xhr.responseText);
         }
     });
+    flag = [false, false];
 }
 
 function deleteTable() {

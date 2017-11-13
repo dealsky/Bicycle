@@ -112,4 +112,11 @@ public class BicycleServiceImpl implements BicycleService {
     public void deleteBicycleById(long bicId) {
         moduleBicycleMapper.deleteByPrimaryKey(bicId);
     }
+
+    public int getBicycleSum() {
+        ModuleBicycleExample moduleBicycleExample = new ModuleBicycleExample();
+        int sum = 0;
+        sum = moduleBicycleMapper.countByExample(moduleBicycleExample);
+        return sum;
+    }
 }

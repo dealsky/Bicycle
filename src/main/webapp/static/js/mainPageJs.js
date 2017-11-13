@@ -46,6 +46,11 @@ $(document).ready(function () {
         show: false
     });
 
+    $("#modalAnnouncement").modal({
+        backdrop: false,
+        show: false
+    });
+
     $("#loginButton").click(function () {
         var userAcc = $(".login-text [name='userAcc']").val();
         var userPAss = $(".login-text [name='userPass']").val();

@@ -19,4 +19,5 @@ public interface BicycleService {
     List<String> getBicycleType();
     void insertBicycle(ModuleBicycle moduleBicycle);
     void deleteBicycleById(long bicId);
+    int getBicycleSum();
 }

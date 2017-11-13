@@ -196,9 +196,11 @@
     margin-top: 40px;
 }
 
-.chart {
-    float: left;
-    width: 400px;
-    height: 400px;
-    text-align: center;
+.p-and-chart .many-p{
+    margin-top: 120px;
+    font-size: 16px;
+}
+
+.p-and-chart p {
+    margin-bottom: 20px;
 }

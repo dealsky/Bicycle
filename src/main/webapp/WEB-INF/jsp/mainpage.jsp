@@ -27,15 +27,11 @@
 
         <!-- Jumbotron -->
         <div class="jumbotron">
-            <h1>欢迎!</h1>
-            <p class="lead">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet.</p>
-            <p><a class="btn btn-lg btn-success" href="#" role="button">Get started today</a></p>
-            <div class="weather-today">
-                <%--<img src="http://app1.showapi.com/weather/icon/day/01.png"/>--%>
-            </div>
+            <h2>欢迎来到公共自行车管理系统!</h2>
+            <p class="lead">本系统实现了的功能: 1.租借卡的办理与充值。 2.站点车辆租用情况查询。 3.自行车借、还操作。 4.自行车租用情况统计......</p>
+            <p><a class="btn btn-lg btn-success" href="" role="button">点击开始</a></p>
         </div>
 
-        <!-- Example row of columns -->
         <div class="row">
             <div class="col-lg-4">
                 <h2>最新公告</h2>
@@ -46,7 +42,7 @@
                     所以，在借车前请务确保租借卡中有足够的余额。（5）还车同样是在借车/还车界面，在还车站点中输入归还自行车的站点，
                     然后点击还车按钮，即可完成还车操作。
                 </p>
-                <p><a class="btn btn-default" href="#" role="button">查看详细信息 &raquo;</a></p>
+                <p><a class="btn btn-default" href="#" role="button" data-toggle="modal" data-target="#modalAnnouncement">查看详细信息 &raquo;</a></p>
             </div>
             <div class="col-lg-4">
                 <h2>租/还车流程</h2>
@@ -57,10 +53,6 @@
             </div>
             <div class="col-lg-4">
                 <h2>今日天气</h2>
-                <%--<div class="weather-info">--%>
-                    <%--所在城市<p></p>--%>
-
-                <%--</div>--%>
                 <div id="weather-today">
                     <div class="weather-info left col-md-5 col-md-offset-1">
                         <h1>{{temperature}}&#186;</h1>
@@ -76,8 +68,6 @@
                         <h3>{{cityE}}</h3>
                     </div>
                 </div>
-
-
             </div>
         </div>
 
@@ -181,6 +171,30 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="modalAnnouncement" role="dialog" aria-labelledby="modalLabelAnnouncement" aria-hidden="true">
+        <div class="modal-dialog modal-login">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="emptiedLogin()">&times;</button>
+                    <h4 class="modal-title" id="modalLabelAnnouncement">最新公告</h4>
+                </div>
+                <div class="modal-body announcement-body">
+                    <p>（1）点击页面右上角注册账号，用注册好的账号登录系统。</p>
+                    <p>（2）借车前请先办理租借卡，办理完成后可以进行充值。</p>
+                    <p>（3）在借车/还车界面，可以根据站点查找某一个站点的自行车，也可以直接通过编号来查询自行车。</p>
+                    <p>（4）在找到了想要借走的自行车后，点击借车按钮可以借到该车。但是要注意的是，如果租借卡的余额较少时，是无法完成借车操作的，
+                        所以，在借车前请务确保租借卡中有足够的余额。</p>
+                    <p>（5）还车同样是在借车/还车界面，在还车站点中输入归还自行车的站点，
+                        然后点击还车按钮，即可完成还车操作。</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" onclick="emptiedLogin()">关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <jsp:include page="common/changepass.jsp"/>
     <jsp:include page="common/footer.jsp"/>
 </body>

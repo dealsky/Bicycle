@@ -102,4 +102,19 @@ public class SiteServiceImpl implements SiteService {
     public void deleteSiteById(long siteId) {
         moduleSiteMapper.deleteByPrimaryKey(siteId);
     }
+
+    public int getSiteSum() {
+        ModuleSiteExample moduleSiteExample = new ModuleSiteExample();
+        int sum = 0;
+        sum = moduleSiteMapper.countByExample(moduleSiteExample);
+        return sum;
+    }
+
+    public List<ModuleSite> getSortedSite() {
+        ModuleSiteExample moduleSiteExample = new ModuleSiteExample();
+        moduleSiteExample.setOrderByClause("SiteAmount DESC");
+        List<ModuleSite> list = null;
+        list = moduleSiteMapper.selectByExample(moduleSiteExample);
+        return list;
+    }
 }

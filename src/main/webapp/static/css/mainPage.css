@@ -64,3 +64,8 @@
 .register-body {
     margin: 10px auto;
 }
+
+#modalAnnouncement .announcement-body {
+    padding: 5% 15%;
+    font-size: 16px;
+}
