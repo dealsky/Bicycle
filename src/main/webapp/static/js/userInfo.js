@@ -2,6 +2,19 @@ $(document).ready(function () {
 
     disableUserInfo(true);
 
+    //$("#fileUpdate").hide();
+
+    $("#headPortrait").bind("click", function () {
+        $("#submitHP").attr("disabled", true);
+        return $("#fileUpdate").click();
+    });
+
+    $("#fileUpdate").bind("change", function () {
+        if($(this).val() != null) {
+            $("#submitHP").attr("disabled", false);
+        }
+    });
+
     $("#changeUserInfo").click(function () {
         disableUserInfo(false);
     });

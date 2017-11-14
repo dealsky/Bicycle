@@ -16,17 +16,6 @@
 <body>
     <jsp:include page="common/nav.jsp"/>
     <div class="container">
-        <%--<div class="chart-body">
-            <div class="chart">
-                <canvas id="typeCountChart" width="400" height="400"></canvas>
-                <p>自行车类型数量图</p>
-            </div>
-            <div class="chart" style="margin-left: 200px;">
-                <canvas id="borrowCountChart" width="400" height="400"></canvas>
-                <p>自行车租借次数图</p>
-            </div>
-        </div>--%>
-
         <div class="bicycle-type-count">
             <h2 class="page-header">自行车</h2>
             <div class="p-and-chart col-md-11 col-md-offset-1">

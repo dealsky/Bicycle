@@ -7,10 +7,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -97,5 +100,21 @@ public class UserInfoController {
         session.setAttribute("user", moduleUser1);
         map.put("message", "success");
         return map;
+    }
+
+    @RequestMapping("/ChangeHeadPortrait.do")
+    public String changeHeadPortrait(@RequestParam MultipartFile multipartFile, HttpSession session) throws IOException {
+        String oldFileName = multipartFile.getOriginalFilename();
+        ModuleUser moduleUser = (ModuleUser) session.getAttribute("user");
+        String newFileName = moduleUser.getUserid().toString() + "default" + oldFileName.substring(oldFileName.lastIndexOf("."));
+        //File uploadPic = new java.io.File("F:/develop/uplaoad/temp/" + newFileName);
+        File file = new File("userHp/" + newFileName);
+        if(!file.exists()){
+            file.mkdirs();
+        }
+        multipartFile.transferTo(file);
+        System.out.println(System.getProperty("user.dir"));
+        System.out.println(newFileName);
+        return "redirect:UserInfo";
     }
 }
