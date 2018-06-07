@@ -1,4 +1,4 @@
-package com.bicycle.controller;
+package com.bicycle.controller.user;
 
 import com.bicycle.dao.entity.ModuleUser;
 import com.bicycle.service.UserService;
@@ -27,6 +27,11 @@ public class mainPageController {
 
     @Resource
     private UserService userService;
+
+    @RequestMapping("/")
+    public String redirectHome() {
+        return "redirect:Home";
+    }
 
     @RequestMapping("/Home")
     public ModelAndView findUser() throws Exception {
