@@ -18,9 +18,6 @@
     <mybatis.version>3.2.8</mybatis.version>
     <!-- mysql驱动版本号 -->
     <mysql-driver.version>5.1.29</mysql-driver.version>
-    <!-- log4j日志包版本号 -->
-    <slf4j.version>1.7.18</slf4j.version>
-    <log4j.version>1.2.17</log4j.version>
   </properties>
 
   <dependencies>
@@ -123,23 +120,6 @@
       <artifactId>fastjson</artifactId>
       <version>1.1.41</version>
     </dependency>
-  <!-- 添加日志相关jar包 -->
-    <dependency>
-      <groupId>log4j</groupId>
-      <artifactId>log4j</artifactId>
-      <version>${log4j.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-api</artifactId>
-      <version>${slf4j.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-log4j12</artifactId>
-      <version>${slf4j.version}</version>
-    </dependency>
-  <!-- log end -->
   <!-- 映入JSON -->
     <dependency>
       <groupId>org.codehaus.jackson</groupId>
@@ -205,6 +185,21 @@
       <groupId>ch.qos.logback</groupId>
       <artifactId>logback-classic</artifactId>
       <version>1.0.11</version>
+    </dependency>
+    <dependency>
+      <groupId>org.logback-extensions</groupId>
+      <artifactId>logback-ext-spring</artifactId>
+      <version>0.1.4</version>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-api</artifactId>
+      <version>1.7.25</version>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>jcl-over-slf4j</artifactId>
+      <version>1.7.25</version>
     </dependency>
     <dependency>
       <groupId>org.projectlombok</groupId>

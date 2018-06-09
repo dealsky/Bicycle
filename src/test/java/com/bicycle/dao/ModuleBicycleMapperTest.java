@@ -2,7 +2,7 @@ package com.bicycle.dao;
 
 import com.bicycle.dao.entity.ModuleBicycle;
 import com.bicycle.dao.entity.ModuleBicycleExample;
-import lombok.extern.log4j.Log4j;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,11 +12,10 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.List;
 
-import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:spring-mybatis.xml"})
-@Log4j
+@Slf4j
 public class ModuleBicycleMapperTest {
 
     @Autowired
