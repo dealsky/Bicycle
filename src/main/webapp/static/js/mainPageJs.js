@@ -3,7 +3,7 @@ $(document).ready(function () {
     var weatherData;
 
     $.ajax({
-        url: "/Bicycle/User/GetWeather.action",
+        url: "GetWeather.action",
         type: "POST",
         datatype: "json",
         async: false,
@@ -60,7 +60,7 @@ $(document).ready(function () {
         // var spinner = new Spinner(opts).spin(target);
 
         $.ajax({
-            url: "/Bicycle/User/login.action",
+            url: "login.action",
             type: "POST",
             dataType: "json",
             data: {
@@ -94,7 +94,7 @@ $(document).ready(function () {
             status[0] = false;
         } else {
             $.ajax({
-                url: "/Bicycle/User/register.userAcc",
+                url: "register.userAcc",
                 type: "POST",
                 dataType: "json",
                 data: {userAcc: userAcc},
@@ -143,7 +143,7 @@ $(document).ready(function () {
         var reg = /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
         if(reg.test(userEmail)) {
             $.ajax({
-                url: "/Bicycle/User/register.userEmail",
+                url: "register.userEmail",
                 type: "POST",
                 dataType: "json",
                 data: {
@@ -211,7 +211,7 @@ $(document).ready(function () {
             }
             if(flag === true) {
                 $.ajax({
-                    url: "/Bicycle/User/register.action",
+                    url: "register.action",
                     type: "POST",
                     dataType: "json",
                     data: {
@@ -327,7 +327,7 @@ $(document).ready(function () {
                 $("#modalPass .error-message").html("<div class='alert alert-danger login-message'>Error</div>");
             } else {
                 $.ajax({
-                    url: "/Bicycle/changePass.do",
+                    url: "changePass.do",
                     type: "POST",
                     dataType: "json",
                     data: {userPass: newPass},
