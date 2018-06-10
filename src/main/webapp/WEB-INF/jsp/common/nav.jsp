@@ -28,7 +28,7 @@
                         ${sessionScope.user.username} <b class="caret"></b>
                     </a>
                     <ul class="dropdown-menu" style="min-width: 120px;">
-                        <li><a href="/Bicycle/User/UserInfo">用户信息</a></li>
+                        <li><a href="userInfo">用户信息</a></li>
                         <li><a href="#" data-toggle="modal" data-target="#modalPass">修改密码</a></li>
                         <li class="divider"></li>
                         <li><a href="logout">安全退出</a></li>

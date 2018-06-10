@@ -41,6 +41,17 @@ public class mainPageController {
         return modelAndView;
     }
 
+    @RequestMapping(value = "/userInfo", method = RequestMethod.GET)
+    public String userInfo(HttpSession httpSession) {
+        ModuleUser moduleUser = (ModuleUser) httpSession.getAttribute("user");
+
+        if(moduleUser == null) {
+            return "redirect:home";
+        } else {
+            return "userinfo";
+        }
+    }
+
     @RequestMapping(value = "/login")
     public @ResponseBody
     Map<String, Object> login(HttpServletRequest request, HttpServletResponse response) throws IOException {

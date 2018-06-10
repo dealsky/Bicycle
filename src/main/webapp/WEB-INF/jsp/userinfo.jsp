@@ -30,14 +30,14 @@
             <div class="row user-info-fix">
                 <h3>用户信息</h3>
                 <div class="user-info-form">
-                    <form action="/Bicycle/User/upUserInfo.do" method="post">
+                    <form action="userInfo" method="post">
                         <div class="row user-info-form-fix">
                             <div class="form-group has-feedback" id="groupName">
                                 <div class="col-md-2" style="float: left; line-height: 30px; margin-right: 20px;">
                                     <label class="control-label">用户名</label>
                                 </div>
                                 <div class="col-md-5">
-                                    <input type="text" class="form-control" name="userName" value="${sessionScope.user.username}"/>
+                                    <input type="text" class="form-control" name="username" value="${sessionScope.user.username}"/>
                                     <div class="error-if">
                                     </div>
                                 </div>
@@ -50,7 +50,7 @@
                                     <label class="control-label">邮箱</label>
                                 </div>
                                 <div class="col-md-5">
-                                    <input type="email" class="form-control" name="userEmail" value="${sessionScope.user.useremail}"/>
+                                    <input type="email" class="form-control" name="useremail" value="${sessionScope.user.useremail}"/>
                                     <div class="error-if">
                                     </div>
                                 </div>
@@ -63,7 +63,7 @@
                                     <label class="control-label">手机号码</label>
                                 </div>
                                 <div class="col-md-5">
-                                    <input type="text" class="form-control" name="userTel" value="${sessionScope.user.usertel}"/>
+                                    <input type="text" class="form-control" name="usertel" value="${sessionScope.user.usertel}"/>
                                     <div class="error-if">
                                     </div>
                                 </div>
@@ -76,7 +76,7 @@
                                     <label class="control-label">身份证号</label>
                                 </div>
                                 <div class="col-md-5">
-                                    <input type="text" class="form-control" name="userIdCard" value="${sessionScope.user.useridcard}"/>
+                                    <input type="text" class="form-control" name="useridcard" value="${sessionScope.user.useridcard}"/>
                                     <div class="error-if">
                                     </div>
                                 </div>
@@ -88,9 +88,9 @@
                                 <label class="control-label">性别</label>
                             </div>
                             <div class="col-md-5">
-                                <input style="width: 30px;" type="radio" name="userSex" value="male"/>
+                                <input style="width: 30px;" type="radio" name="usersex" value="1"/>
                                 <span>男</span>
-                                <input style="width: 30px;" type="radio" name="userSex" value="female"/>
+                                <input style="width: 30px;" type="radio" name="usersex" value="0"/>
                                 <span>女</span>
                             </div>
 
@@ -99,9 +99,9 @@
                                 userSex = ${sessionScope.user.usersex};
                                 if(userSex !== null) {
                                     if(userSex === 0) {
-                                        $("[value='female']").attr("checked", true);
+                                        $("[value='0']").attr("checked", true);
                                     } else {
-                                        $("[value='male']").attr("checked", true);
+                                        $("[value='1']").attr("checked", true);
                                     }
                                 }
                             </script>

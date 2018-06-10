@@ -5,6 +5,7 @@ import com.bicycle.service.UserService;
 import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -19,80 +20,21 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-@RequestMapping("/User")
+@RequestMapping("/user")
 public class UserInfoController {
 
     @Resource
     private UserService userService;
 
-    @RequestMapping("/UserInfo")
-    public String userInfo(HttpSession httpSession) {
-        ModuleUser moduleUser = (ModuleUser) httpSession.getAttribute("user");
-
-        if(moduleUser == null) {
-            return "redirect:Home";
-        } else {
-            return "userinfo";
-        }
-    }
-
-    @RequestMapping("/UpEmail.do")
-    public @ResponseBody Map<String, Object> upEmail(@RequestParam String userEmail, HttpSession httpSession) {
-        Map<String, Object> map = new HashMap<>();
-
-        List list = userService.getModuleUserByEmail(userEmail);
-        ModuleUser moduleUser = (ModuleUser) httpSession.getAttribute("user");
-        ModuleUser moduleUser1 = null;
-        if(list.size() != 0){
-            moduleUser1 = (ModuleUser) list.get(0);
-        }
-        if(list.size() == 0 ||(list.size()==1 && moduleUser.getUserid().equals(moduleUser1.getUserid()))) {
-            map.put("message", "success");
-        } else {
-            map.put("message", "error");
-        }
-        return map;
-    }
-
-    @RequestMapping("/upUserInfo.do")
-    public String upUserInfo(HttpServletRequest request, HttpSession session) {
+    @RequestMapping(value = "userInfo", method = RequestMethod.POST)
+    public String upUserInfo( HttpSession session, ModuleUser user) {
         ModuleUser moduleUser = (ModuleUser) session.getAttribute("user");
-        ModuleUser moduleUser1 = new ModuleUser();
 
-
-        String userName = request.getParameter("userName");
-        String userEmail = request.getParameter("userEmail");
-        String userTel = request.getParameter("userTel");
-        String userIdCard = request.getParameter("userIdCard");
-        int userSex = request.getParameter("userSex").equals("female") ? 0 : 1;
-
-        moduleUser1.setUserid(moduleUser.getUserid());
-        moduleUser1.setUsername(userName);
-        moduleUser1.setUseremail(userEmail);
-        moduleUser1.setUsertel(userTel);
-        moduleUser1.setUseridcard(userIdCard);
-        moduleUser1.setUsersex(userSex);
-        userService.updateUserInfo(moduleUser1);
+        user.setUserid(moduleUser.getUserid());
+        userService.updateUserInfo(user);
 
         ModuleUser moduleUser2 = userService.getModuleUserById(moduleUser.getUserid());
         session.setAttribute("user", moduleUser2);
-        return "redirect:UserInfo";
-    }
-
-
-    @RequestMapping("/ChangeHeadPortrait.do")
-    public String changeHeadPortrait(@RequestParam MultipartFile multipartFile, HttpSession session) throws IOException {
-        String oldFileName = multipartFile.getOriginalFilename();
-        ModuleUser moduleUser = (ModuleUser) session.getAttribute("user");
-        String newFileName = moduleUser.getUserid().toString() + "default" + oldFileName.substring(oldFileName.lastIndexOf("."));
-        //File uploadPic = new java.io.File("F:/develop/uplaoad/temp/" + newFileName);
-        File file = new File("userHp/" + newFileName);
-        if(!file.exists()){
-            file.mkdirs();
-        }
-        multipartFile.transferTo(file);
-        System.out.println(System.getProperty("user.dir"));
-        System.out.println(newFileName);
-        return "redirect:UserInfo";
+        return "redirect:userInfo";
     }
 }
