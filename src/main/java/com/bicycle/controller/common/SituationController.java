@@ -1,4 +1,4 @@
-package com.bicycle.controller;
+package com.bicycle.controller.common;
 
 import com.bicycle.dao.entity.ModuleSite;
 import com.bicycle.dao.entity.ModuleUser;
@@ -31,7 +31,7 @@ public class SituationController {
         if(moduleUser != null) {
             return "situation";
         } else {
-            return "redirect:Home";
+            return "redirect:home";
         }
     }
 

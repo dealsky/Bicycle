@@ -1,4 +1,4 @@
-package com.bicycle.controller;
+package com.bicycle.controller.user;
 
 import com.bicycle.dao.entity.ModuleUser;
 import com.bicycle.service.UserService;
