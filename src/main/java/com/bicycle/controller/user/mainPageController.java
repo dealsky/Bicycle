@@ -152,4 +152,27 @@ public class mainPageController {
         map.put("weather", new String(b,"utf-8"));
         return map;
     }
+
+    @RequestMapping("/changePass.pan")
+    public @ResponseBody Map<String, Object> changePassPan(HttpSession session, @RequestParam String userPass) {
+        Map<String, Object> map = new HashMap<>();
+        ModuleUser moduleUser = (ModuleUser) session.getAttribute("user");
+        if(userService.panUserPass(moduleUser, userPass)) {
+            map.put("message", "right");
+        } else {
+            map.put("message", "error");
+        }
+        return map;
+    }
+
+    @RequestMapping("/changePass.do")
+    public @ResponseBody Map<String, Object> changePass(@RequestParam String userPass, HttpSession session) {
+        Map<String, Object> map = new HashMap<>();
+        ModuleUser moduleUser = (ModuleUser) session.getAttribute("user");
+        userService.updateUserPass(moduleUser.getUserid(), userPass);
+        ModuleUser moduleUser1 = userService.getModuleUserById(moduleUser.getUserid());
+        session.setAttribute("user", moduleUser1);
+        map.put("message", "success");
+        return map;
+    }
 }

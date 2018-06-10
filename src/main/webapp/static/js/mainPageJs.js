@@ -251,7 +251,7 @@ $(document).ready(function () {
     $("#modalPass [name='oldPass']").bind("change", function () {
         var oldPass = $(this).val();
         $.ajax({
-            url: "/Bicycle/changePass.pan",
+            url: "changePass.pan",
             type: "POST",
             dataType: "json",
             data: {userPass: oldPass},

@@ -21,15 +21,8 @@
         <div class="user-info">
             <div class="row user-info-img">
                 <div class="user-info-avatar">
-                    <img src="${pageContext.request.contextPath}/static/image/hp1.jpg" class="img-rounded" id="headPortrait" width="180" height="180" data-toggle="tooltip" data-placement="bottom"  title="更换你的头像"/>
+                    <img src="${pageContext.request.contextPath}/static/image/hp1.jpg" id="headPortrait" width="180" height="180"/>
                 </div>
-
-                    <form action="/Bicycle/User/ChangeHeadPortrait.do" method="post" enctype="multipart/form-data">
-                        <div hidden="hidden">
-                            <input type="file" name="multipartFile" id="fileUpdate" accept="image/*"/>
-                        </div>
-                        <input type="submit" value="提交" class="btn btn-success" id="submitHP" disabled="disabled"/>
-                    </form>
 
                 <h3>${sessionScope.user.username}</h3>
                 <a href="mailto:${sessionScope.user.useremail}">${sessionScope.user.useremail}</a>
