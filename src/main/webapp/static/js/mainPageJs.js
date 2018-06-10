@@ -60,7 +60,7 @@ $(document).ready(function () {
         // var spinner = new Spinner(opts).spin(target);
 
         $.ajax({
-            url: "login.action",
+            url: "login",
             type: "POST",
             dataType: "json",
             data: {
@@ -74,7 +74,7 @@ $(document).ready(function () {
                     $("#error-message").html("<div class='alert alert-danger login-message'>账号不存在</div>");
                 } else if(data.meg === "ok"){
                     $("#error-message").html("<div class='alert alert-success login-message'>登录成功</div>");
-                    window.location.href = "/Bicycle/User/Home";
+                    window.location.href = "home";
                 }
             },
             error: function (xhr) {
@@ -94,8 +94,8 @@ $(document).ready(function () {
             status[0] = false;
         } else {
             $.ajax({
-                url: "register.userAcc",
-                type: "POST",
+                url: "userAcc",
+                type: "get",
                 dataType: "json",
                 data: {userAcc: userAcc},
                 success: function(data) {
@@ -143,8 +143,8 @@ $(document).ready(function () {
         var reg = /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
         if(reg.test(userEmail)) {
             $.ajax({
-                url: "register.userEmail",
-                type: "POST",
+                url: "userEmail",
+                type: "get",
                 dataType: "json",
                 data: {
                     userEmail: userEmail
@@ -211,7 +211,7 @@ $(document).ready(function () {
             }
             if(flag === true) {
                 $.ajax({
-                    url: "register.action",
+                    url: "register",
                     type: "POST",
                     dataType: "json",
                     data: {
@@ -229,9 +229,6 @@ $(document).ready(function () {
                             $("#error-message-register").html("<div class='alert alert-danger register-message'>该邮箱已被注册</div>");
                         } else if(data.meg === "right"){
                             $("#error-message-register").html("<div class='alert alert-success register-message'>注册成功</div>");
-                            $.post("/Bicycle/User/register.in", {userAcc: userAcc}, function () {
-                                window.location.href = "/Bicycle/User/Home";
-                            });
                         }
                     },
                     error: function (xhr) {
@@ -251,8 +248,8 @@ $(document).ready(function () {
     $("#modalPass [name='oldPass']").bind("change", function () {
         var oldPass = $(this).val();
         $.ajax({
-            url: "changePass.pan",
-            type: "POST",
+            url: "password",
+            type: "get",
             dataType: "json",
             data: {userPass: oldPass},
             success: function (data) {
@@ -327,14 +324,14 @@ $(document).ready(function () {
                 $("#modalPass .error-message").html("<div class='alert alert-danger login-message'>Error</div>");
             } else {
                 $.ajax({
-                    url: "changePass.do",
+                    url: "password",
                     type: "POST",
                     dataType: "json",
                     data: {userPass: newPass},
                     success: function (data) {
                         if(data.message === "success") {
                             $("#modalPass .error-message").html("<div class='alert alert-success login-message'>Success</div>");
-                            window.location.href = "/Bicycle/User/Home";
+                            window.location.href = "home";
                         }
                     },
                     error: function (xhr) {

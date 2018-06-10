@@ -4,6 +4,7 @@ import com.bicycle.dao.entity.ModuleUser;
 import com.bicycle.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -22,7 +23,7 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-@RequestMapping("/User")
+@RequestMapping("/user")
 public class mainPageController {
 
     @Resource
@@ -30,17 +31,17 @@ public class mainPageController {
 
     @RequestMapping("/")
     public String redirectHome() {
-        return "redirect:Home";
+        return "redirect:home";
     }
 
-    @RequestMapping("/Home")
+    @RequestMapping("/home")
     public ModelAndView findUser() throws Exception {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("mainpage");
         return modelAndView;
     }
 
-    @RequestMapping(value = "/login.action")
+    @RequestMapping(value = "/login")
     public @ResponseBody
     Map<String, Object> login(HttpServletRequest request, HttpServletResponse response) throws IOException {
         Map<String, Object> map = new HashMap<>();
@@ -63,13 +64,13 @@ public class mainPageController {
         return map;
     }
 
-    @RequestMapping("/logout.do")
+    @RequestMapping("/logout")
     public String logout(HttpSession httpSession) {
         httpSession.removeAttribute("user");
-        return "redirect:Home";
+        return "redirect:home";
     }
 
-    @RequestMapping("/register.action")
+    @RequestMapping("/register")
     public @ResponseBody Map<String, Object> register(HttpServletRequest request, HttpServletResponse response) throws IOException{
         Map<String, Object> map = new HashMap<>();
         ModuleUser moduleUser = new ModuleUser();
@@ -98,16 +99,7 @@ public class mainPageController {
         return map;
     }
 
-    @RequestMapping("/register.in")
-    public String registerIn(HttpServletRequest request, HttpSession httpSession) {
-        String userAcc = request.getParameter("userAcc");
-        ModuleUser moduleUser = (ModuleUser) userService.getModuleUserByAcc(userAcc).get(0);
-        userService.updateUserLastLoginTimeByAcc(moduleUser.getUserid());
-        httpSession.setAttribute("user", moduleUser);
-        return "mainpage";
-    }
-
-    @RequestMapping("/register.userAcc")
+    @RequestMapping(value = "/userAcc", method = RequestMethod.GET)
     public @ResponseBody Map<String, Object> registerAcc(@RequestParam String userAcc) {
         Map<String, Object> map = new HashMap<>();
         List list = userService.getModuleUserByAcc(userAcc);
@@ -119,7 +111,7 @@ public class mainPageController {
         return map;
     }
 
-    @RequestMapping("/register.userEmail")
+    @RequestMapping(value = "/userEmail", method = RequestMethod.GET)
     public @ResponseBody Map<String, Object> registerEmail(@RequestParam String userEmail) {
         Map<String, Object> map = new HashMap<>();
         List list = userService.getModuleUserByEmail(userEmail);
@@ -153,7 +145,7 @@ public class mainPageController {
         return map;
     }
 
-    @RequestMapping("/changePass.pan")
+    @RequestMapping(value = "/password", method = RequestMethod.GET)
     public @ResponseBody Map<String, Object> changePassPan(HttpSession session, @RequestParam String userPass) {
         Map<String, Object> map = new HashMap<>();
         ModuleUser moduleUser = (ModuleUser) session.getAttribute("user");
@@ -165,7 +157,7 @@ public class mainPageController {
         return map;
     }
 
-    @RequestMapping("/changePass.do")
+    @RequestMapping(value = "/password", method = RequestMethod.POST)
     public @ResponseBody Map<String, Object> changePass(@RequestParam String userPass, HttpSession session) {
         Map<String, Object> map = new HashMap<>();
         ModuleUser moduleUser = (ModuleUser) session.getAttribute("user");

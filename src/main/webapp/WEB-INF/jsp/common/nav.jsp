@@ -2,11 +2,11 @@
 <nav class="navbar navbar-inverse navbar-static-top">
     <div class="container">
         <div class="navbar-header">
-            <a class="navbar-brand" href="/Bicycle/User/Home">Bicycle</a>
+            <a class="navbar-brand" href="home">Bicycle</a>
         </div>
         <div>
             <ul class="nav navbar-nav">
-                <li><a href="/Bicycle/User/Home">主页</a></li>
+                <li><a href="home">主页</a></li>
                 <li><a href="/Bicycle/User/Borrow">借车/还车</a></li>
                 <li><a href="/Bicycle/User/RentalCard">租借卡</a></li>
                 <li><a href="/Bicycle/User/Situation">自行车租用情况</a></li>
@@ -31,7 +31,7 @@
                         <li><a href="/Bicycle/User/UserInfo">用户信息</a></li>
                         <li><a href="#" data-toggle="modal" data-target="#modalPass">修改密码</a></li>
                         <li class="divider"></li>
-                        <li><a href="/Bicycle/User/logout.do">安全退出</a></li>
+                        <li><a href="logout">安全退出</a></li>
                     </ul>
                 </li>
             </ul>
