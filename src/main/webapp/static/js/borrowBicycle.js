@@ -136,8 +136,7 @@ function getArea() {
     var siteArea = $("#checkSite:first").nextAll().find(":checked").text();
     $("#checkSite").html("<option disabled=\"disabled\" selected=\"selected\">选择一个区域</option>");
     $.ajax({
-        url: "/Bicycle/User/GetArea.do",
-        type: "POST",
+        url: "getArea",
         success: function (data) {
             var len = data.sites.length;
             for(var i = 0; i<len; i++) {

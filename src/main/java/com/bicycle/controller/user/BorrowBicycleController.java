@@ -6,6 +6,7 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -18,7 +19,7 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-@RequestMapping("/User")
+@RequestMapping("/user")
 public class BorrowBicycleController {
 
     @Resource
@@ -32,17 +33,17 @@ public class BorrowBicycleController {
     @Resource
     private RentedService rentedService;
 
-    @RequestMapping("/Borrow")
+    @RequestMapping(value = "/borrow", method = RequestMethod.GET)
     public String borrow(HttpSession session) {
         ModuleUser moduleUser = (ModuleUser) session.getAttribute("user");
         if(moduleUser == null) {
-            return "redirect:Home";
+            return "redirect:home";
         } else {
             return "borrowbicycle";
         }
     }
 
-    @RequestMapping("/GetArea.do")
+    @RequestMapping(value = "/getArea", method = RequestMethod.GET)
     public @ResponseBody Map<String, Object> getArea() {
         Map<String, Object> map = new HashMap<>();
         List<String> list = siteService.getAllSiteArea();
