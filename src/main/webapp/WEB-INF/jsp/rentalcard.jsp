@@ -25,12 +25,23 @@
         <div class="cards">
             <script>
                 function rentalClose(recId) {
-                    console.log(recId);
-                    $.post("/Bicycle/User/removeRentCard.do", {recId: recId}, function () {
-                        window.location.href = "/Bicycle/User/RentalCard";
-                    });
+                    var param = {
+                        recId: recId,
+                        _method: "DELETE"
+                    };
+
+                    if (recId) {
+                        $.ajax({
+                            url: "rentalCard",
+                            type: "post",
+                            data: param,
+                            success: function () {
+                                window.location.href = "rentalCard";
+                            }
+                        })
+                    }
                 }
-                
+
                 function chargeMoney(recnumber, recbalance, recid) {
                     $("#chargeMoney").modal({
                         backdrop: false,
@@ -57,11 +68,11 @@
 
                 function addRentalCard() {
                     $.ajax({
-                        url: "/Bicycle/User/addRentCard.do",
+                        url: "rentalCard",
                         type: "POST",
                         success: function (data) {
                             if(data.message === "right") {
-                                window.location.href = "/Bicycle/User/RentalCard"
+                                window.location.href = "rentalCard"
                             } else if(data.message === "error") {
                                 $(".can-not-add").html("<div class=\"alert alert-warning\">\n" +
                                     "            <a href=\"#\" class=\"close\" data-dismiss=\"alert\">\n" +
@@ -70,7 +81,7 @@
                                     "            <strong>警告！</strong>你只能拥有一张租借卡。\n" +
                                     "        </div>");
                             } else {
-                                window.location.href = "/Bicycle/User/Home";
+                                window.location.href = "home";
                             }
                         },
                         error: function (xhr) {
@@ -112,7 +123,7 @@
             </div>
         <div>
     </div>
-            
+
     <!-- Modal -->
     <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" id="chargeMoney">
         <div class="modal-dialog modal-sm" role="document">
@@ -121,7 +132,8 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title" id="myModalLabel">充值</h4>
                 </div>
-                <form action="/Bicycle/User/chargeMoney.do" method="post">
+                <form action="rentalCard" method="post">
+                    <input type="hidden" name="_method" value="put" />
                     <div class="modal-body">
                         <div id="rentalHidden">
                             <input type="hidden" name="recId"/>

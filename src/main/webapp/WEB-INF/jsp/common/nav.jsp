@@ -8,7 +8,7 @@
             <ul class="nav navbar-nav">
                 <li><a href="home">主页</a></li>
                 <li><a href="/Bicycle/User/Borrow">借车/还车</a></li>
-                <li><a href="/Bicycle/User/RentalCard">租借卡</a></li>
+                <li><a href="rentalCard">租借卡</a></li>
                 <li><a href="/Bicycle/User/Situation">自行车租用情况</a></li>
             </ul>
         </div>

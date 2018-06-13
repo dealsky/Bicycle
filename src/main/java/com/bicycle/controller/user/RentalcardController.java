@@ -6,6 +6,7 @@ import com.bicycle.service.RentalcardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -17,17 +18,17 @@ import java.util.Map;
 import java.util.Random;
 
 @Controller
-@RequestMapping("/User")
+@RequestMapping("/user")
 public class RentalcardController {
 
     @Resource
     private RentalcardService rentalcardService;
 
-    @RequestMapping("/RentalCard")
+    @RequestMapping(value = "/rentalCard", method = RequestMethod.GET)
     public String rentalCard(HttpSession session) {
         ModuleUser moduleUser = (ModuleUser) session.getAttribute("user");
         if(moduleUser == null) {
-            return "redirect:Home";
+            return "redirect:home";
         } else {
             long userId = moduleUser.getUserid();
             List<ModuleRentalcard> list = rentalcardService.getModuleRentalcardByUserId(userId);
@@ -36,7 +37,8 @@ public class RentalcardController {
         }
     }
 
-    @RequestMapping("/addRentCard.do")
+    // 添加卡
+    @RequestMapping(value = "/rentalCard", method = RequestMethod.POST)
     public @ResponseBody Map<String, Object> addRentCard(HttpSession session) {
         Map<String, Object> map = new HashMap<>();
         ModuleUser moduleUser = (ModuleUser) session.getAttribute("user");
@@ -61,7 +63,8 @@ public class RentalcardController {
         return map;
     }
 
-    @RequestMapping("/removeRentCard.do")
+    // 删除卡
+    @RequestMapping(value = "/rentalCard", method = RequestMethod.DELETE)
     public String removeRentCard(HttpSession session, @RequestParam long recId) {
         List<ModuleRentalcard> list = (List<ModuleRentalcard>) session.getAttribute("cards");
         rentalcardService.removeModuleRentalcardById(recId);
@@ -71,10 +74,11 @@ public class RentalcardController {
             }
         }
         session.setAttribute("cards", list);
-        return "redirect:RentalCard";
+        return "redirect:rentalCard";
     }
 
-    @RequestMapping("/chargeMoney.do")
+    // 修改卡
+    @RequestMapping(value = "/rentalCard", method = RequestMethod.PUT)
     public String chargeMoney(HttpSession session, @RequestParam long recId, @RequestParam float recCharge) {
         List<ModuleRentalcard> list = (List<ModuleRentalcard>) session.getAttribute("cards");
         for(int i = 0; i<list.size(); i++) {
@@ -90,6 +94,6 @@ public class RentalcardController {
             }
         }
         session.setAttribute("cards", list);
-        return "redirect:RentalCard";
+        return "redirect:rentalCard";
     }
 }
