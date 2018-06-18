@@ -307,8 +307,7 @@ function opBorrowModal(bicycleNumber) {
 
 function displayRented() {
     $.ajax({
-        url: "/Bicycle/User/DisplayRented.do",
-        type: "POST",
+        url: "displayRented",
         dataType: "json",
         success: function (data) {
             if(data.errorLog === "right") {
@@ -333,7 +332,7 @@ function displayRented() {
             } else if(data.errorLog === "noRented") {
                 $("#returnBicycle .error-message").html("");
             } else {
-                window.location.href = "/Bicycle/User/Home";
+                window.location.href = "home";
             }
         },
         error: function (xhr) {
@@ -355,7 +354,7 @@ function returnBicycle(bicid) {
         return;
     } else {
         $.ajax({
-            url: "/Bicycle/User/ReturnBicycle.do",
+            url: "returnBicycle",
             type: "POST",
             dataType: "json",
             data: {

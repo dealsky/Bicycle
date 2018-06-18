@@ -4,6 +4,7 @@ import com.bicycle.dao.entity.*;
 import com.bicycle.service.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -15,7 +16,7 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-@RequestMapping("/User")
+@RequestMapping("/user")
 public class ReturnBicycleController {
 
     @Resource
@@ -33,7 +34,7 @@ public class ReturnBicycleController {
     @Resource
     private RentalcardService rentalcardService;
 
-    @RequestMapping("/DisplayRented.do")
+    @RequestMapping(value = "/displayRented", method = RequestMethod.GET)
     public @ResponseBody Map<String, Object> displayRented(HttpSession session) {
         Map<String, Object> map = new HashMap<>();
         ModuleUser moduleUser = (ModuleUser) session.getAttribute("user");
@@ -55,7 +56,7 @@ public class ReturnBicycleController {
         return map;
     }
 
-    @RequestMapping("/ReturnBicycle.do")
+    @RequestMapping(value = "returnBicycle", method = RequestMethod.POST)
     public @ResponseBody Map<String, Object> returnBicycle(@RequestParam long bicId, @RequestParam long siteNumber,
                                                            @RequestParam float price, HttpSession session) {
         Map<String, Object> map = new HashMap<>();
