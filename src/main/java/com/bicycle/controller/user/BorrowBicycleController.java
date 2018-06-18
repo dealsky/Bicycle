@@ -51,7 +51,7 @@ public class BorrowBicycleController {
         return map;
     }
 
-    @RequestMapping("/DisplaySite.do")
+    @RequestMapping(value = "/displaySite", method = RequestMethod.GET)
     public @ResponseBody Map<String, Object> displaySite(@RequestParam String siteArea, @RequestParam Integer pageNum) {
         Map<String, Object> map = new HashMap<>();
         int pageSize = 5;
@@ -68,7 +68,7 @@ public class BorrowBicycleController {
         return map;
     }
 
-    @RequestMapping("/SearchSite.do")
+    @RequestMapping(value = "/searchSite", method = RequestMethod.GET)
     public @ResponseBody Map<String, Object> searchSite(@RequestParam long siteNumber) {
         Map<String, Object> map = new HashMap<>();
         List<ModuleSite> list = siteService.getSiteByNumber(siteNumber);
@@ -81,7 +81,7 @@ public class BorrowBicycleController {
         return map;
     }
 
-    @RequestMapping("/DisplayBicycle.do")
+    @RequestMapping(value = "/displayBicycle", method = RequestMethod.GET)
     public @ResponseBody Map<String, Object> displayBicycle(@RequestParam long siteId, @RequestParam Integer pageNum, @RequestParam Integer pageSize) {
         Map<String, Object> map = new HashMap<>();
         PageInfo<ModulePark> pageInfo = parkService.getPageParkBySiteId(siteId, pageNum, pageSize);
@@ -109,7 +109,7 @@ public class BorrowBicycleController {
         return map;
     }
 
-    @RequestMapping("/SearchBicycle.do")
+    @RequestMapping(value = "/searchBicycle", method = RequestMethod.GET)
     public @ResponseBody Map<String, Object> searchBicycle(@RequestParam long bicycleNumber) {
         Map<String, Object> map = new HashMap<>();
         List<ModuleBicycle> list = bicycleService.getBicycleByNumber(bicycleNumber);
@@ -122,7 +122,7 @@ public class BorrowBicycleController {
         return map;
     }
 
-    @RequestMapping("/JudgmentBorrow.do")
+    @RequestMapping(value = "/judgmentBorrow", method = RequestMethod.POST)
     public @ResponseBody Map<String, Object> judgmentBorrow(@RequestParam long bicycleNumber, HttpSession session) {
         Map<String, Object> map = new HashMap<>();
         ModuleUser moduleUser = (ModuleUser) session.getAttribute("user");

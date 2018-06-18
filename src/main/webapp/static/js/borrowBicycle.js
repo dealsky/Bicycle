@@ -16,8 +16,7 @@ $(document).ready(function () {
         $(".site-table tbody").html("");
         $(".page-site").html("");
         $.ajax({
-            url: "/Bicycle/User/DisplaySite.do",
-            type: "POST",
+            url: "displaySite",
             dataType: "json",
             data: {siteArea: siteArea, pageNum: 1},
             success: function (data) {
@@ -63,8 +62,7 @@ $(document).ready(function () {
             return;
         }
         $.ajax({
-            url: "/Bicycle/User/SearchSite.do",
-            type: "POST",
+            url: "searchSite",
             dataType: "json",
             data: {siteNumber: siteNumber},
             success: function (data) {
@@ -104,8 +102,7 @@ $(document).ready(function () {
             return;
         }
         $.ajax({
-            url: "/Bicycle/User/SearchBicycle.do",
-            type: "POST",
+            url: "searchBicycle",
             dataType: "json",
             data: {bicycleNumber: bicycleNumber},
             success: function (data) {
@@ -156,8 +153,7 @@ function pageTo(pageNum, siteArea) {
     //$(".site-table tbody").html("");
     //$(".page-site").html("");
     $.ajax({
-        url: "/Bicycle/User/DisplaySite.do",
-        type: "POST",
+        url: "displaySite",
         dataType: "json",
         data: {siteArea: siteArea, pageNum: pageNum},
         success: function (data) {
@@ -192,8 +188,7 @@ function pageTo(pageNum, siteArea) {
 function showBicycle(siteId, pageNum, pageSize) {
     $("#displayBicycleError").html("");
     $.ajax({
-        url: "/Bicycle/User/DisplayBicycle.do",
-        type: "POST",
+        url: "displayBicycle",
         dataType: "json",
         data: {
             siteId: siteId,
@@ -263,7 +258,7 @@ function changePageSize(siteId) {
 
 function opBorrowModal(bicycleNumber) {
     $.ajax({
-        url: "/Bicycle/User/JudgmentBorrow.do",
+        url: "judgmentBorrow",
         type: "POST",
         dataType: "json",
         data: {bicycleNumber: bicycleNumber},
@@ -301,7 +296,7 @@ function opBorrowModal(bicycleNumber) {
                     "                <strong>错误！</strong>同一时间只能租用一辆自行车。\n" +
                     "            </div>");
             } else {
-                window.location.href = "/Bicycle/User/Home";
+                window.location.href = "home";
             }
         },
         error: function (xhr) {
