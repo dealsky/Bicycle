@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-@RequestMapping("/User")
+@RequestMapping("/common")
 public class SituationController {
 
     @Resource
@@ -25,29 +25,29 @@ public class SituationController {
     @Resource
     private SiteService siteService;
 
-    @RequestMapping("/Situation")
+    @RequestMapping("/situation")
     public String situation(HttpSession session) {
         ModuleUser moduleUser = (ModuleUser) session.getAttribute("user");
         if(moduleUser != null) {
             return "situation";
         } else {
-            return "redirect:home";
+            return "redirect:/user/home";
         }
     }
 
-    @RequestMapping("/BicycleCount.do")
+    @RequestMapping("/bicycleCount")
     public @ResponseBody Map<String, Integer> bicycleCount() {
         Map<String, Integer> map = bicycleService.getBicycleCount();
         return map;
     }
 
-    @RequestMapping("/BicycleBorrowCount.do")
+    @RequestMapping("/bicycleBorrowCount")
     public @ResponseBody Map<String, Integer> bicycleBorrowCount() {
         Map<String, Integer> map = bicycleService.getBicycleBorrowCount();
         return map;
     }
 
-    @RequestMapping("/SiteCount.do")
+    @RequestMapping("/siteCount")
     public @ResponseBody Map<String, Object> siteCount() {
         Map<String, Object> map = new HashMap<>();
         List<ModuleSite> list = siteService.getSortedSite();
@@ -59,7 +59,7 @@ public class SituationController {
         return map;
     }
 
-    @RequestMapping("/BicCount.do")
+    @RequestMapping("/bicCount")
     public @ResponseBody Map<String, Object> bicCount() {
         Map<String, Object> map = new HashMap<>();
         Map<String, Integer> typeMap = null;
@@ -86,7 +86,7 @@ public class SituationController {
         return map;
     }
 
-    @RequestMapping("/BorrowCount.do")
+    @RequestMapping("/borrowCount")
     public @ResponseBody Map<String, Object> borrowCount() {
         Map<String, Object> map = new HashMap<>();
         Map<String, Integer> borrowMap = bicycleService.getBicycleBorrowCount();
@@ -114,7 +114,7 @@ public class SituationController {
         return map;
     }
 
-    @RequestMapping("/CountSite.do")
+    @RequestMapping("/countSite")
     public @ResponseBody Map<String, Integer> countSite() {
         Map<String, Integer> map = siteService.getSiteCount();
         return map;

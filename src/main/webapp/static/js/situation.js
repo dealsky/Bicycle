@@ -13,7 +13,7 @@ $(document).ready(function () {
         methods: {
             ready: function() {
                 $.ajax({
-                    url: "/Bicycle/User/SiteCount.do",
+                    url: "/Bicycle/common/siteCount",
                     dataType: "json",
                     success: function(data){
                         siteCount.siteNum = data.siteNum;
@@ -45,7 +45,7 @@ $(document).ready(function () {
         methods: {
             ready: function() {
                 $.ajax({
-                    url: "/Bicycle/User/BicCount.do",
+                    url: "/Bicycle/common/bicCount",
                     dataType: "json",
                     success: function(data){
                         typeCount.bicNum = data.bicNum;
@@ -77,7 +77,7 @@ $(document).ready(function () {
         methods: {
             ready: function() {
                 $.ajax({
-                    url: "/Bicycle/User/BorrowCount.do",
+                    url: "/Bicycle/common/borrowCount",
                     dataType: "json",
                     success: function(data){
                         borrowCount.borrowSum = data.borrowSum;
@@ -99,8 +99,7 @@ function getBicycleTypeCount() {
     var colorAll = ['#16a085', '#27ae60', '#2c3e50', '#f39c12', '#e74c3c', '#9b59b6', '#FB6964', '#342224', '#472E32', '#BDBB99', '#77B1A9', '#73A857'];
 
     $.ajax({
-        url: "/Bicycle/User/BicycleCount.do",
-        type: "POST",
+        url: "/Bicycle/common/bicycleCount",
         dataType: "json",
         success: function (map) {
             var arr = Object.keys(map);
@@ -137,8 +136,7 @@ function getBorrowCount() {
     var colorAll = ['#16a085', '#27ae60', '#2c3e50', '#f39c12', '#e74c3c', '#9b59b6', '#FB6964', '#342224', '#472E32', '#BDBB99', '#77B1A9', '#73A857'];
 
     $.ajax({
-        url: "/Bicycle/User/BicycleBorrowCount.do",
-        type: "POST",
+        url: "/Bicycle/common/bicycleBorrowCount",
         dataType: "json",
         success: function (map) {
             var arr = Object.keys(map);
@@ -175,8 +173,7 @@ function countSite() {
     var colorAll = ['#16a085', '#27ae60', '#2c3e50', '#f39c12', '#e74c3c', '#9b59b6', '#FB6964', '#342224', '#472E32', '#BDBB99', '#77B1A9', '#73A857'];
 
     $.ajax({
-        url: "/Bicycle/User/CountSite.do",
-        type: "POST",
+        url: "/Bicycle/common/countSite",
         dataType: "json",
         success: function (map) {
             var arr = Object.keys(map);

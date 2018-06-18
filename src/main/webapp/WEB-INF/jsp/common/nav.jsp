@@ -9,7 +9,7 @@
                 <li><a href="home">主页</a></li>
                 <li><a href="borrow">借车/还车</a></li>
                 <li><a href="rentalCard">租借卡</a></li>
-                <li><a href="/Bicycle/User/Situation">自行车租用情况</a></li>
+                <li><a href="/Bicycle/common/situation">自行车租用情况</a></li>
             </ul>
         </div>
         <div class="navbar-right">
