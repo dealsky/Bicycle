@@ -28,7 +28,7 @@
         function login(managerAcc, managerPass) {
             if(managerAcc!=="" && managerPass!=="") {
                 $.ajax({
-                    url: "/Bicycle/Administer/ManagerLogin.action",
+                    url: "login",
                     type: "POST",
                     dataType: "json",
                     data: {
@@ -37,7 +37,7 @@
                     },
                     success: function (data) {
                         if(data.errorLog === "right") {
-                            window.location.href = "/Bicycle/Administer/";
+                            window.location.href = "index";
                         } else if(data.errorLog === "pass") {
                             console.log("密码错误");
                         } else {

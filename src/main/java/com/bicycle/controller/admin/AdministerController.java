@@ -14,7 +14,7 @@ import javax.servlet.http.HttpSession;
 import java.util.*;
 
 @Controller
-@RequestMapping("/Administer")
+@RequestMapping("/admin")
 public class AdministerController {
 
     @Resource
@@ -35,30 +35,30 @@ public class AdministerController {
     @Resource
     private RentedService rentedService;
 
-    @RequestMapping("/")
-    public String administer() {
+    @RequestMapping("/index")
+    public String index() {
         return "administer";
     }
 
-    @RequestMapping("/ManageBicycle")
+    @RequestMapping("/manageBicycle")
     public String manageBicycle(HttpSession session) {
         if(session.getAttribute("manager") != null) {
             return "managebicycle";
         } else {
-            return "redirect:/Administer/";
+            return "redirect:index";
         }
     }
 
-    @RequestMapping("/ManageSite")
+    @RequestMapping("/manageSite")
     public String manageSite(HttpSession session) {
         if(session.getAttribute("manager") != null) {
             return "managesite";
         } else {
-            return "redirect:/Administer/";
+            return "redirect:index";
         }
     }
 
-    @RequestMapping("/ManagerLogin.action")
+    @RequestMapping("/login")
     public @ResponseBody Map<String, Object> managerLogin(@RequestParam String managerAcc, @RequestParam String managerPass, HttpSession session) {
         Map<String, Object> map = new HashMap<>();
         List<ModuleManager> list = managerService.getManagerByAcc(managerAcc);
@@ -80,7 +80,7 @@ public class AdministerController {
         return map;
     }
 
-    @RequestMapping("/ManagerLogout.do")
+    @RequestMapping("/logout")
     public String managerLogout(HttpSession httpSession) {
         httpSession.removeAttribute("manager");
         return "redirect:/Administer/";

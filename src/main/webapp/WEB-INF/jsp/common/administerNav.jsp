@@ -9,7 +9,7 @@
 <nav class="navbar navbar-inverse navbar-static-top">
     <div class="container-fluid">
         <div class="navbar-header">
-            <a class="navbar-brand" href="/Bicycle/Administer/">Administer</a>
+            <a class="navbar-brand" href="index">Administer</a>
         </div>
         <%
             if(session.getAttribute("manager") == null){%>
@@ -29,7 +29,7 @@
                     ${sessionScope.manager.magname} <b class="caret"></b>
                 </a>
                 <ul class="dropdown-menu" style="min-width: 120px;">
-                    <li><a href="/Bicycle/Administer/ManagerLogout.do">安全退出</a></li>
+                    <li><a href="logout">安全退出</a></li>
                 </ul>
             </li>
         </ul>
@@ -42,9 +42,9 @@
     <div class="row">
         <div class="col-md-2 sidebar">
             <ul class="nav nav-sidebar">
-                <li class="over-view"><a href="/Bicycle/Administer/">概述<span class="sr-only">(current)</span></a></li>
-                <li><a href="/Bicycle/Administer/ManageBicycle" class="manage-bicycle">自行车管理</a></li>
-                <li><a href="/Bicycle/Administer/ManageSite" class="manage-site">站点管理</a></li>
+                <li class="over-view"><a href="index">概述<span class="sr-only">(current)</span></a></li>
+                <li><a href="manageBicycle" class="manage-bicycle">自行车管理</a></li>
+                <li><a href="manageSite" class="manage-site">站点管理</a></li>
             </ul>
         </div>
     </div>
