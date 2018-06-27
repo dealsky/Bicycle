@@ -53,19 +53,25 @@
             </div>
             <div class="col-lg-4">
                 <h2>今日天气</h2>
-                <div id="weather-today">
+                <div>
                     <div class="weather-info left col-md-5 col-md-offset-1">
-                        <h1>{{temperature}}&#186;</h1>
-                        <p>{{weather}} {{day_air_temperature}}&#186;/{{night_air_temperature}}&#186;C</p>
-                        <p>空气质量指数: {{aqi}}</p>
-                        <p>空气湿度: {{sd}}</p>
-                        <p>风向: {{wind_direction}}</p>
-                        <p>风力: {{wind_power}}</p>
+                        <%--<h1>{{temperature}}&#186;</h1>--%>
+                        <%--<p>{{weather}} {{day_air_temperature}}&#186;/{{night_air_temperature}}&#186;C</p>--%>
+                        <%--<p>空气质量指数: {{aqi}}</p>--%>
+                        <%--<p>空气湿度: {{sd}}</p>--%>
+                        <%--<p>风向: {{wind_direction}}</p>--%>
+                        <%--<p>风力: {{wind_power}}</p>--%>
+                        <h1>35&#186;</h1>
+                        <p>多云 27&#186;/37&#186;C</p>
+                        <p>空气质量指数: 54</p>
+                        <p>空气湿度: 88%</p>
+                        <p>风向: 南风</p>
+                        <p>风力: 3级</p>
                     </div>
                     <div class="weather-img right col-md-5">
                         <img src="http://app1.showapi.com/weather/icon/day/01.png"/>
-                        <h2>{{city}}</h2>
-                        <h3>{{cityE}}</h3>
+                        <h2>宁波</h2>
+                        <h3>NingBo</h3>
                     </div>
                 </div>
             </div>
